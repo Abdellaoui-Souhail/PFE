@@ -29,14 +29,18 @@ def LoadDataSetMultiCoil(load_dir, variable = 'images_fs', padding = True, Norm 
         print(fullmulti.shape)
         for i in range(nframe):
             for j in range(nslice):
-                image = fullmulti[i, j]
+                k_space = fullmulti[i, j]
+                kspace2 = T.to_tensor(kspace) 
+                image = fastmri.ifft2c(kspace)
+                print(3)
+                print(image.shape)
                 # Reshape image to include coil dimension
                 image = np.expand_dims(image, axis=0)
                 if len(data) == 0:
                     data = image
                 else:
                     data = np.concatenate((data, image), axis=0)
-    print(2)
+    print(3)
     print(data.shape)
     return data
 
@@ -157,6 +161,7 @@ def get_fs_multicoil(data_dir, phase = 'train'):
     # data_fs=np.concatenate((data_fs_t1,data_fs_t2,data_fs_flair),axis=0)
     # data_fs = np.squeeze(data_fs)
 
+    print(4)
     print(data_fs.shape)
 
     return data_fs

@@ -39,7 +39,7 @@ source venv/bin/activate
 python -m pip install .
 
 echo "Training" 
-python -m train.py --data_dir /path_to_data/ --log_interval 5000 --save_dir 'model_multicoil' --save_interval 5000 --image_size 384 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 1000 --lr 1e-4 --batch_size 1 --lr_anneal_steps 15000 --undersampling_rate 2 --data_type 'multicoil'
+python -m project.train --data_dir // --log_interval 5000 --save_dir 'model_multicoil' --save_interval 5000 --image_size 384 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 1000 --lr 1e-4 --batch_size 1 --lr_anneal_steps 15000 --undersampling_rate 2 --data_type 'multicoil'
 
 
 if [[ $? != 0 ]]; then
