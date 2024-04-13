@@ -3,6 +3,7 @@ import h5py
 import fastmri 
 import os
 from fastmri.data import transforms as T
+from project.utils import dist_util, logger
 
 def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
 
@@ -70,13 +71,12 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
             )
 
             image_list = image.reshape(nframe * nslice, 512, 512)
-            print(image_list.shape)
             images_list.append(image_list)
 
 
     # Concatenate all images at once
     data = np.concatenate(images_list,  axis=0)
-    print(data.shape)
+    logger.log("DATA")
     np.save('/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/data_40.npy', data)
     return data
 

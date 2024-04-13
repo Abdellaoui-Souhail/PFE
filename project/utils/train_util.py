@@ -6,8 +6,6 @@ import blobfile as bf
 import numpy as np
 import torch as th
 from torch.optim import AdamW
-# import torch.distributed as dist
-# from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 
 from torch.cuda.amp import GradScaler, autocast
 
@@ -50,7 +48,7 @@ class TrainLoop:
         lr_anneal_steps=0,
         save_dir=''
     ):
-        print("INIT")
+        logger.log("INIT")
         self.model = model
         self.diffusion = diffusion
         self.data = data
@@ -72,10 +70,10 @@ class TrainLoop:
         self.lr_anneal_steps = lr_anneal_steps
         self.save_dir = save_dir
 
-        print("Step 1 FINISH")
+        logger.log("Step 1 FINISH")
         self.scaler = GradScaler()
 
-        print("Step 2 FINISH")
+        logger.log("Step 2 FINISH")
 
         self.step = 0
         self.resume_step = 0
@@ -91,7 +89,7 @@ class TrainLoop:
         if self.use_fp16:
             self._setup_fp16()
 
-        print("Step 3 FINISH")
+        logger.log("Step 3 FINISH")
         self.opt = AdamW(self.master_params, lr=self.lr, weight_decay=self.weight_decay)
         if self.resume_step:
             self._load_optimizer_state()
@@ -104,7 +102,7 @@ class TrainLoop:
             self.ema_params = [
                 copy.deepcopy(self.master_params) for _ in range(len(self.ema_rate))
             ]
-        print("End INIT")
+        logger.log("End INIT")
 
     
     def _load_and_sync_parameters(self):
@@ -171,7 +169,7 @@ class TrainLoop:
         self.model.convert_to_fp16()
 
     def run_loop(self):
-        print("BEGIN LOOP")
+        logger.log("BEGIN LOOP")
         while (self.step + self.resume_step < self.lr_anneal_steps):
             print("Step:", self.step)
             batch, cond = next(self.data)
@@ -186,7 +184,7 @@ class TrainLoop:
             self.save()
 
     def run_step(self, batch, cond):
-        print("IN RUN STEP")
+        logger.log("IN RUN STEP")
         self.forward_backward(batch, cond)
         self.optimize()
         # if self.use_fp16:
@@ -194,10 +192,10 @@ class TrainLoop:
         # else:
         #     self.optimize_normal()
         self.log_step()
-        print("OUT RUN STEP")
+        logger.log("OUT RUN STEP")
 
     def forward_backward(self, batch, cond):
-        print("IN FORWARD BACKWARD")
+        logger.log("IN FORWARD BACKWARD")
         zero_grad(self.model_params)
         with autocast():  # Automatic Mixed Precision context
             # Directly use the full batch since microbatching is disabled
@@ -210,18 +208,17 @@ class TrainLoop:
             )
             loss = (losses["loss"] * weights).mean()  # Compute the weighted mean loss
             self.scaler.scale(loss).backward()
-        print("IN FORWARD BACKWARD")
+        logger.log("IN FORWARD BACKWARD")
         
-
     def optimize(self):
-        print("IN OPTIMIZE")
+        logger.log("IN OPTIMIZE")
         self.scaler.step(self.opt)  # Make an optimizer step using the scaled gradients
         self.scaler.update()  # Update the scale for the next iteration
         for rate, params in zip(self.ema_rate, self.ema_params):
             update_ema(params, self.master_params, rate=rate)
         self._log_grad_norm()
         self._anneal_lr()
-        print("OUT OPTIMIZE")
+        logger.log("OUT OPTIMIZE")
 
     def optimize_fp16(self):
         if any(not th.isfinite(p.grad).all() for p in self.model_params):

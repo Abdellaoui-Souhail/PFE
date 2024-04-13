@@ -39,6 +39,7 @@ def main():
     )
 
     logger.log("training...")
+    logger.log("je suis bien ici")
     TrainLoop(
         model=model,
         diffusion=diffusion,
@@ -57,6 +58,7 @@ def main():
         lr_anneal_steps=args.lr_anneal_steps,
         save_dir=args.save_dir
     ).run_loop()
+    logger.log("j'ai fini l'entrainement")
 
 
 def create_argparser():
