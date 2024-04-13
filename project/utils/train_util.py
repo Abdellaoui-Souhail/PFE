@@ -209,13 +209,13 @@ class TrainLoop:
     def forward_backward(self, batch, cond):
         zero_grad(self.model_params)
         for i in range(0, batch.shape[0], self.microbatch):
-             micro = batch[i : i + self.microbatch].to(dist_util.dev())
-             micro_cond = {
-                 k: v[i : i + self.microbatch].to(dist_util.dev())
-                 for k, v in cond.items()
-             }
-             last_batch = (i + self.microbatch) >= batch.shape[0]
-             t, weights = self.schedule_sampler.sample(micro.shape[0], dist_util.dev())
+            micro = batch[i : i + self.microbatch].to(dist_util.dev())
+            micro_cond = {
+                k: v[i : i + self.microbatch].to(dist_util.dev())
+                for k, v in cond.items()
+            }
+            last_batch = (i + self.microbatch) >= batch.shape[0]
+            t, weights = self.schedule_sampler.sample(micro.shape[0], dist_util.dev())
             
 
             compute_losses = functools.partial(
