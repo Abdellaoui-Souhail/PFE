@@ -17,186 +17,60 @@ def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
     return data
 
 
-def LoadDataSetMultiCoil(load_dir, variable = 'images_fs', padding = True, Norm = True, res = [384, 384], slices = 10, is_complex = True, channel_cat = False):
-    
+def LoadDataSetMultiCoil(load_dir, **kwargs):
+
     load_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/P"
     data = []
-    desired_size = [512,512]
+    desired_size = [512, 512]
 
-    for k in range(1,10):
-        file_name = load_dir + "00" + str(k) + "/cine_sax.mat"
-        f = h5py.File(file_name, 'r')
-        newvalue = f['kspace_full']
-        fullmulti = newvalue["real"] + 1j*newvalue["imag"] 
-        [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-        for i in range(nframe):
-            for j in range(nslice):
-                k_space = fullmulti[i, j]
-                k_space = T.to_tensor(k_space)
+    images_list = []
+
+    # Adjusted to handle file indexing
+    for k in range(1, 121):
+        if k < 10:
+            k_index = f"00{k}"
+        elif k < 100:
+            k_index = f"0{k}"
+        else:
+            k_index = str(k)
+
+        # Skip indices between 80 and 90
+        if 80 <= k <= 90:
+            continue
+
+        file_name = os.path.join(load_dir, k_index, "cine_sax.mat")
+        with h5py.File(file_name, 'r') as f:
+            newvalue = f['kspace_full']
+            fullmulti = newvalue["real"] + 1j * newvalue["imag"]
+            fullmulti = T.tensor(fullmulti, dtype=T.complex64).to(device)  # Convert and move to GPU in one step
+
+            [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
+
+            for i in range(nframe):
+                k_space = fullmulti[i]  # Process all slices at once per frame
+
+                # Perform the inverse FFT and compute RSS on the GPU
                 complex_image = fastmri.ifft2c(k_space)
-                image_rss = fastmri.rss(complex_image, dim=0)
-                image_inter = image_rss.numpy()
-                image_finale = image_inter[:,:,0] + 1j*image_inter[:,:,1]
-                pad_0 = desired_size[0] - image_finale.shape[0]
-                pad_1 = desired_size[1] - image_finale.shape[1]
-                image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
-                image = np.expand_dims(image, axis=0)
-                if len(data) == 0:
-                    data = image
-                else:
-                    data = np.concatenate((data, image), axis=0)
-    
-    # for k in range(10,80):
-    #     file_name = load_dir + "0" + str(k) + "/cine_sax.mat"
-    #     f = h5py.File(file_name, 'r')
-    #     newvalue = f['kspace_full']
-    #     fullmulti = newvalue["real"] + 1j*newvalue["imag"] 
-    #     [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-    #     for i in range(nframe):
-    #         for j in range(nslice):
-    #             k_space = fullmulti[i, j]
-    #             k_space = T.to_tensor(k_space)
-    #             complex_image = fastmri.ifft2c(k_space)
-    #             image_rss = fastmri.rss(complex_image, dim=0)
-    #             image_inter = image_rss.numpy()
-    #             image_finale = image_inter[:,:,0] + 1j*image_inter[:,:,1]
-    #             pad_0 = desired_size[0] - image_finale.shape[0]
-    #             pad_1 = desired_size[1] - image_finale.shape[1]
-    #             image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
-    #             image = np.expand_dims(image, axis=0)
-    #             if len(data) == 0:
-    #                 data = image
-    #             else:
-    #                 data = np.concatenate((data, image), axis=0)
-    #                 print(data.shape)
-    
-    # for k in range(91,100):
-    #     file_name = load_dir + "0" + str(k) + "/cine_sax.mat"
-    #     f = h5py.File(file_name, 'r')
-    #     newvalue = f['kspace_full']
-    #     fullmulti = newvalue["real"] + 1j*newvalue["imag"] 
-    #     [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-    #     for i in range(nframe):
-    #         for j in range(nslice):
-    #             k_space = fullmulti[i, j]
-    #             k_space = T.to_tensor(k_space)
-    #             complex_image = fastmri.ifft2c(k_space)
-    #             image_rss = fastmri.rss(complex_image, dim=0)
-    #             image_inter = image_rss.numpy()
-    #             image_finale = image_inter[:,:,0] + 1j*image_inter[:,:,1]
-    #             pad_0 = desired_size[0] - image_finale.shape[0]
-    #             pad_1 = desired_size[1] - image_finale.shape[1]
-    #             image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
-    #             image = np.expand_dims(image, axis=0)
-    #             if len(data) == 0:
-    #                 data = image
-    #             else:
-    #                 data = np.concatenate((data, image), axis=0)
-    #                 print(data.shape)
-    
-    # for k in range(100,121):
-        # file_name = load_dir + str(k) + "/cine_sax.mat"
-        # f = h5py.File(file_name, 'r')
-        # newvalue = f['kspace_full']
-        # fullmulti = newvalue["real"] + 1j*newvalue["imag"] 
-        # [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-        # for i in range(nframe):
-        #     for j in range(nslice):
-        #         k_space = fullmulti[i, j]
-        #         k_space = T.to_tensor(k_space)
-        #         complex_image = fastmri.ifft2c(k_space)
-        #         image_rss = fastmri.rss(complex_image, dim=0)
-        #         image_inter = image_rss.numpy()
-        #         image_finale = image_inter[:,:,0] + 1j*image_inter[:,:,1]
-        #         pad_0 = desired_size[0] - image_finale.shape[0]
-        #         pad_1 = desired_size[1] - image_finale.shape[1]
-        #         image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
-        #         image = np.expand_dims(image, axis=0)
-        #         if len(data) == 0:
-        #             data = image
-        #         else:
-        #             data = np.concatenate((data, image), axis=0)
-        #             print(data.shape)    
+                image_rss = fastmri.rss(complex_image, dim=1)  # Adjust dimension if necessary
+
+                # Move to CPU and convert to numpy for further processing
+                image_rss = image_rss.to('cpu').numpy().view(np.complex64)
+
+                for j in range(nslice):
+                    image_finale = image_rss[j]
+
+                    # Calculate padding if required
+                    pad_0 = max(0, desired_size[0] - image_finale.shape[0])
+                    pad_1 = max(0, desired_size[1] - image_finale.shape[1])
+                    image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
+                    image = np.expand_dims(image, axis=0)
+
+                    # Store images in a list
+                    images_list.append(image)
+
+    # Concatenate all images at once
+    data = np.concatenate(images_list, axis=0)
     return data
-
-
-    # load_dir = "/media/NAS_CMR/CMRxRecon/ChallengeData/MultiCoil/Cine/TrainingSet/FullSample1/P"
-    # data = []
-
-    # for k in range(10):
-    #     file_name = load_dir + "00" + str(k) + "/cine_sax.mat"
-    #     f = h5py.File(file_name, 'r')
-    #     newvalue = f['kspace_full']
-    #     fullmulti = newvalue["real"] + 1j*newvalue["imag"] 
-    #     [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-    #     print(1)
-    #     print(fullmulti.shape)
-    #     for i in range(nframe):
-    #         for j in range(nslice):
-    #             k_space = fullmulti[i, j]
-    #             kspace2 = T.to_tensor(kspace) 
-    #             image = fastmri.ifft2c(kspace)
-    #             print(3)
-    #             print(image.shape)
-    #             # Reshape image to include coil dimension
-    #             image = np.expand_dims(image, axis=0)
-    #             if len(data) == 0:
-    #                 data = image
-    #             else:
-    #                 data = np.concatenate((data, image), axis=0)
-    # return data
-
-
-    # f = h5py.File(load_dir,'r')
-
-    # if np.array(f[variable]).ndim==3:
-    #     data=np.expand_dims(np.transpose(np.array(f[variable]),(0,1,2)),axis=1)
-    # else:
-    #     data=np.transpose(np.array(f[variable]),(1,0,2,3))
-
-    # if is_complex:
-    #     data  = data['real'] + 1j*data['imag']
-    # else:
-    #     data=data.astype(np.float32)
-
-    # if Norm:
-    #     #normalize each subject
-    #     subjects=int(data.shape[0]/slices )
-    #     data=np.split(data,subjects,axis=0)
-    #     data=[x/abs(x).max() for x in data]
-    #     data=np.concatenate(data,axis=0)
-
-    # if channel_cat:
-    #     data  = np.concatenate((data.real, data.imag), axis=1)
-
-    # if padding:
-    #     pad_x = int((res[0]-data.shape[2])/2)
-    #     pad_y = int((res[1]-data.shape[3])/2)
-    #     data=np.pad(data,((0,0),(0,0),(pad_x, pad_x),(pad_y, pad_y)))
-
-    # return data
-
-    # file_name = '/media/NAS_CMR/CMRxRecon/ChallengeData/MultiCoil/Cine/TrainingSet/FullSample1/P001/cine_sax.mat'
-    # file_name = '/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/P0(001->120)/cine_sax.mat'
-    # hf_m = h5py.File(file_name)
-    # newvalue = hf_m['kspace_full'] data -> newvalue
-    # fullmulti = newvalue["real"] + 1j*newvalue["imag"]
-    # [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
-
-    # print("Loading MICAII images")
-    # data_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/"
-    # number_patient = 121
-    # for k in range(10):
-    #     target_file = data_dir + "P00" + str(k) + "/cine_sax.mat"
-    #     data_1 = LoadDataSetMultiCoil(target_file)
-    # for k in range(10,100):
-    #     target_file = data_dir + "P0" + str(k) + "/cine_sax.mat"
-    #     data_2 = LoadDataSetMultiCoil(target_file)
-    # for k in range(100,number_patient+1):
-    #     target_file = data_dir + "P" + str(k) + "/cine_sax.mat"
-    #     data_3 = LoadDataSetMultiCoil(target_file)
-    # data = np.concatenate((data_1, data_2, data_3), axis=0)
-    # # [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
 
 
 def get_fs_singlecoil(data_dir, phase = 'train'):
@@ -248,21 +122,6 @@ def get_fs_multicoil(data_dir, phase = 'train'):
     """
 
     data_fs = LoadDataSetMultiCoil(data_dir)
-    
-    # print("Loading T1 images")
-    # target_file = data_dir + "T1/T1_under_sampled_2x_multicoil_" + str(phase)+ ".mat"
-    # data_fs_t1 = LoadDataSetMultiCoil(target_file)
-
-    # print("Loading T2 images")
-    # target_file = data_dir + "T2/T2_under_sampled_2x_multicoil_" + str(phase) + ".mat"
-    # data_fs_t2 = LoadDataSetMultiCoil(target_file)
-
-    # print("Loading FLAIR images")
-    # target_file = data_dir + "FLAIR/FLAIR_under_sampled_2x_multicoil_" + str(phase)+ ".mat"
-    # data_fs_flair=LoadDataSetMultiCoil(target_file)
-
-    # data_fs=np.concatenate((data_fs_t1,data_fs_t2,data_fs_flair),axis=0)
-    # data_fs = np.squeeze(data_fs)
 
     print(data_fs.shape)
 

@@ -1,0 +1,70 @@
+Note : basculement sur 'a8d40660cd23238adf0a79ab657af9fcf8049cd8'.
+
+Vous êtes dans l'état « HEAD détachée ». Vous pouvez visiter, faire des modifications
+expérimentales et les valider. Il vous suffit de faire un autre basculement pour
+abandonner les commits que vous faites dans cet état sans impacter les autres branches
+
+Si vous voulez créer une nouvelle branche pour conserver les commits que vous créez,
+il vous suffit d'utiliser l'option -c de la commande switch comme ceci :
+
+  git switch -c <nom-de-la-nouvelle-branche>
+
+Ou annuler cette opération avec :
+
+  git switch -
+
+Désactivez ce conseil en renseignant la variable de configuration advice.detachedHead à false
+
+HEAD est maintenant sur a8d4066 baby example
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/tmp/abdellaoui_sou-69697/code/project/train.py", line 86, in <module>
+    main()
+  File "/tmp/abdellaoui_sou-69697/code/project/train.py", line 42, in main
+    TrainLoop(
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/train_util.py", line 186, in run_loop
+    self.run_step(batch, cond)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/train_util.py", line 197, in run_step
+    self.forward_backward(batch, cond)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/train_util.py", line 224, in forward_backward
+    losses = compute_losses()
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/fdb.py", line 315, in training_losses
+    model_output = model(x_t, t, **model_kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/unet.py", line 485, in forward
+    h = module(h, emb)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/unet.py", line 44, in forward
+    x = layer(x, emb)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/unet.py", line 180, in forward
+    return checkpoint(
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/nn.py", line 139, in checkpoint
+    return func(*inputs)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/unet.py", line 185, in _forward
+    h = self.in_layers(x)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/container.py", line 217, in forward
+    input = module(input)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69697/code/project/utils/nn.py", line 14, in forward
+    return x * th.sigmoid(x)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 23.68 GiB of which 534.31 MiB is free. Including non-PyTorch memory, this process has 23.16 GiB memory in use. Of the allocated memory 21.72 GiB is allocated by PyTorch, and 19.73 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
