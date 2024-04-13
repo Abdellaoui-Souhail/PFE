@@ -123,20 +123,17 @@ class TrainLoop:
             self.resume_step = parse_resume_step_from_filename(resume_checkpoint)
             logger.log(f"loading model from checkpoint: {resume_checkpoint}...")
             self.model.load_state_dict(
-                dist_util.load_state_dict(
-                    resume_checkpoint, map_location=dist_util.dev()
-                )
-            )
-            self.model.load_state_dict(
                 self._load_state_dict(resume_checkpoint)
             )
         #     if dist.get_rank() == 0:
-        #      
-        #      self.model.load_state_dict(
-        #         self._load_state_dict(resume_checkpoint)
+        #     self.model.load_state_dict(
+        #         dist_util.load_state_dict(
+        #             resume_checkpoint, map_location=dist_util.dev()
+        #         )
         #     )
 
         # dist_util.sync_params(self.model.parameters())
+    
     def _load_state_dict(self, checkpoint_path):
         if th.cuda.is_available():
             return th.load(checkpoint_path)
@@ -151,16 +148,14 @@ class TrainLoop:
         ema_checkpoint = find_ema_checkpoint(main_checkpoint, self.resume_step, rate)
         if ema_checkpoint:
             logger.log(f"loading EMA from checkpoint: {ema_checkpoint}...")
-            state_dict = dist_util.load_state_dict(
-                ema_checkpoint, map_location=dist_util.dev()
+            ema_params = self._state_dict_to_master_params(
+                self._load_state_dict(ema_checkpoint)
             )
-            ema_params = self._state_dict_to_master_params(state_dict)
-        
-        # if ema_checkpoint:
-        #     logger.log(f"loading EMA from checkpoint: {ema_checkpoint}...")
-        #     ema_params = self._state_dict_to_master_params(
-        #         self._load_state_dict(ema_checkpoint)
-        #     )
+
+            # state_dict = dist_util.load_state_dict(
+            #     ema_checkpoint, map_location=dist_util.dev()
+            # )
+            # ema_params = self._state_dict_to_master_params(state_dict)
         
         return ema_params
 
@@ -171,21 +166,14 @@ class TrainLoop:
         )
         if bf.exists(opt_checkpoint):
             logger.log(f"loading optimizer state from checkpoint: {opt_checkpoint}")
-            state_dict = dist_util.load_state_dict(
-                opt_checkpoint, map_location=dist_util.dev()
+            self.opt.load_state_dict(
+                self._load_state_dict(opt_checkpoint)
             )
-            self.opt.load_state_dict(state_dict)
 
-        # def _load_optimizer_state(self):
-        #     main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
-        #     opt_checkpoint = bf.join(
-        #         bf.dirname(main_checkpoint), f"opt{self.resume_step:06}.pt"
-        #     )
-        #     if bf.exists(opt_checkpoint):
-        #         logger.log(f"loading optimizer state from checkpoint: {opt_checkpoint}")
-        #         self.opt.load_state_dict(
-        #             self._load_state_dict(opt_checkpoint)
-        #         )
+            # state_dict = dist_util.load_state_dict(
+            #     opt_checkpoint, map_location=dist_util.dev()
+            # )
+            # self.opt.load_state_dict(state_dict)
 
     def _setup_fp16(self):
         self.master_params = make_master_params(self.model_params)

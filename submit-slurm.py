@@ -39,7 +39,7 @@ source venv/bin/activate
 python -m pip install .
 
 echo "Training" 
-python -m project.train --data_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/ --log_interval 5000 --save_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil --save_interval 5000 --image_size 512 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 1000 --lr 1e-4 --batch_size 1 --lr_anneal_steps 500 --undersampling_rate 2 --data_type 'multicoil'
+python -m project.train --data_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/ --log_interval 50 --save_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil --save_interval 100 --image_size 512 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 1000 --lr 1e-4 --batch_size 8 --lr_anneal_steps 500 --undersampling_rate 2 --data_type 'multicoil'
 
 
 if [[ $? != 0 ]]; then
