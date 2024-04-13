@@ -20,7 +20,7 @@ def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
 
 def LoadDataSetMultiCoil(load_dir, **kwargs):
 
-    load_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/P"
+    load_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet"
     data = []
     desired_size = [512, 512]
 
@@ -29,11 +29,11 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
     # Adjusted to handle file indexing
     for k in range(1, 121):
         if k < 10:
-            k_index = f"00{k}"
+            k_index = f"P00{k}"
         elif k < 100:
-            k_index = f"0{k}"
+            k_index = f"P0{k}"
         else:
-            k_index = str(k)
+            k_index = f"P{k}"
 
         # Skip indices between 80 and 90
         if 80 <= k <= 90:
