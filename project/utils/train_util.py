@@ -10,6 +10,7 @@ from torch.optim import AdamW
 # from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 
 from torch.cuda.amp import GradScaler, autocast
+from torch.profiler import profile, record_function, ProfilerActivity
 
 from . import dist_util, logger
 from .fp16_util import (
