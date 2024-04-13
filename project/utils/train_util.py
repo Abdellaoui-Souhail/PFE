@@ -10,7 +10,6 @@ from torch.optim import AdamW
 # from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 
 from torch.cuda.amp import GradScaler, autocast
-from torch.profiler import profile, record_function, ProfilerActivity
 
 from . import dist_util, logger
 from .fp16_util import (
@@ -51,6 +50,7 @@ class TrainLoop:
         lr_anneal_steps=0,
         save_dir=''
     ):
+        print("INIT")
         self.model = model
         self.diffusion = diffusion
         self.data = data
@@ -72,7 +72,10 @@ class TrainLoop:
         self.lr_anneal_steps = lr_anneal_steps
         self.save_dir = save_dir
 
+        print("Step 1 FINISH")
         self.scaler = GradScaler()
+
+        print("Step 2 FINISH")
 
         self.step = 0
         self.resume_step = 0
@@ -88,6 +91,7 @@ class TrainLoop:
         if self.use_fp16:
             self._setup_fp16()
 
+        print("Step 3 FINISH")
         self.opt = AdamW(self.master_params, lr=self.lr, weight_decay=self.weight_decay)
         if self.resume_step:
             self._load_optimizer_state()
@@ -100,25 +104,7 @@ class TrainLoop:
             self.ema_params = [
                 copy.deepcopy(self.master_params) for _ in range(len(self.ema_rate))
             ]
-
-        # if th.cuda.is_available():
-        #     self.use_ddp = True
-        #     self.ddp_model = DDP(
-        #         self.model,
-        #         device_ids=[dist_util.dev()],
-        #         output_device=dist_util.dev(),
-        #         broadcast_buffers=False,
-        #         bucket_cap_mb=128,
-        #         find_unused_parameters=False,
-        #     )
-        # else:
-        #     if dist.get_world_size() > 1:
-        #         logger.warn(
-        #             "Distributed training requires CUDA. "
-        #             "Gradients will not be synchronized properly!"
-        #         )
-        #     self.use_ddp = False
-        #     self.ddp_model = self.model
+        print("End INIT")
 
     
     def _load_and_sync_parameters(self):
@@ -185,21 +171,22 @@ class TrainLoop:
         self.model.convert_to_fp16()
 
     def run_loop(self):
-        with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
-            while (self.step + self.resume_step < self.lr_anneal_steps):
-                print("Step:", self.step)
-                batch, cond = next(self.data)
-                self.run_step(batch, cond)
-                if self.step % self.log_interval == 0 and self.step != 0:
-                    logger.dumpkvs()
-                if self.step % self.save_interval == 0 and self.step != 0:
-                    self.save()
-                self.step += 1
-            # Save the last checkpoint if it wasn't already saved.
-            if (self.step - 1) % self.save_interval != 0:
+        print("BEGIN LOOP")
+        while (self.step + self.resume_step < self.lr_anneal_steps):
+            print("Step:", self.step)
+            batch, cond = next(self.data)
+            self.run_step(batch, cond)
+            if self.step % self.log_interval == 0 and self.step != 0:
+                logger.dumpkvs()
+            if self.step % self.save_interval == 0 and self.step != 0:
                 self.save()
+            self.step += 1
+        # Save the last checkpoint if it wasn't already saved.
+        if (self.step - 1) % self.save_interval != 0:
+            self.save()
 
     def run_step(self, batch, cond):
+        print("IN RUN STEP")
         self.forward_backward(batch, cond)
         self.optimize()
         # if self.use_fp16:
@@ -207,8 +194,10 @@ class TrainLoop:
         # else:
         #     self.optimize_normal()
         self.log_step()
+        print("OUT RUN STEP")
 
     def forward_backward(self, batch, cond):
+        print("IN FORWARD BACKWARD")
         zero_grad(self.model_params)
         with autocast():  # Automatic Mixed Precision context
             # Directly use the full batch since microbatching is disabled
@@ -221,56 +210,18 @@ class TrainLoop:
             )
             loss = (losses["loss"] * weights).mean()  # Compute the weighted mean loss
             self.scaler.scale(loss).backward()
+        print("IN FORWARD BACKWARD")
         
-        # zero_grad(self.model_params)
-        # for i in range(0, batch.shape[0], self.microbatch):
-        #     micro = batch[i : i + self.microbatch].to(dist_util.dev())
-        #     micro_cond = {
-        #         k: v[i : i + self.microbatch].to(dist_util.dev())
-        #         for k, v in cond.items()
-        #     }
-        #     last_batch = (i + self.microbatch) >= batch.shape[0]
-        #     t, weights = self.schedule_sampler.sample(micro.shape[0], dist_util.dev())
-            
-
-        #     compute_losses = functools.partial(
-        #         self.diffusion.training_losses,
-        #         self.model,
-        #         micro,
-        #         t,
-        #         model_kwargs=micro_cond,
-        #     )
-
-        #     losses = compute_losses()
-
-        #             if last_batch or not self.use_ddp:
-        #                 losses = compute_losses()
-        #             else:
-        #                 with self.ddp_model.no_sync():
-        #                     losses = compute_losses()
-
-            # if isinstance(self.schedule_sampler, LossAwareSampler):
-            #     self.schedule_sampler.update_with_local_losses(
-            #         t, losses["loss"].detach()
-            #     )
-
-            # loss = (losses["loss"] * weights).mean()
-            # log_loss_dict(
-            #     self.diffusion, t, {k: v * weights for k, v in losses.items()}
-            # )
-            # if self.use_fp16:
-            #     loss_scale = 2 ** self.lg_loss_scale
-            #     (loss * loss_scale).backward()
-            # else:
-            #     loss.backward()
 
     def optimize(self):
+        print("IN OPTIMIZE")
         self.scaler.step(self.opt)  # Make an optimizer step using the scaled gradients
         self.scaler.update()  # Update the scale for the next iteration
         for rate, params in zip(self.ema_rate, self.ema_params):
             update_ema(params, self.master_params, rate=rate)
         self._log_grad_norm()
         self._anneal_lr()
+        print("OUT OPTIMIZE")
 
     def optimize_fp16(self):
         if any(not th.isfinite(p.grad).all() for p in self.model_params):
