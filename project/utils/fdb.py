@@ -93,7 +93,7 @@ class DiffusionBridge:
         img = x_0[:, [0]] + x_0[:, [1]] * 1j
         img = self.fft2c(img)
         img_0 = th.clone(img)
-        img_t_minus_1 = None
+        img_t_minus_1 = img_0
 
         for i in range(n):
             x = np.random.randint(dim)
