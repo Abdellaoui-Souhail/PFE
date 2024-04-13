@@ -77,6 +77,8 @@ def create_model(
     use_scale_shift_norm,
     dropout,
 ):
+    if image_size == 512:
+        channel_mult = (1, 1, 2, 2, 4, 4)
     if image_size == 256:
         channel_mult = (1, 1, 2, 2, 4, 4)
     elif image_size == 320:
