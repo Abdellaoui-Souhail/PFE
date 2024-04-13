@@ -28,7 +28,7 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
     images_list = []
 
     # Adjusted to handle file indexing
-    for k in range(1, 121):
+    for k in range(1, 40):
         if k < 10:
             k_index = f"P00{k}"
         elif k < 100:
@@ -77,6 +77,7 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
     # Concatenate all images at once
     data = np.concatenate(images_list,  axis=0)
     print(data.shape)
+    np.save('/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/data_40.npy', data)
     return data
 
 
