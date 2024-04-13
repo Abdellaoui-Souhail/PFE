@@ -2,6 +2,7 @@ import numpy as np
 import h5py
 import fastmri 
 from fastmri.data import transforms as T
+import os
 
 def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
 
