@@ -250,7 +250,7 @@ def get_fs_multicoil(data_dir, phase = 'train'):
     [Number of images x height x width]
     """
 
-    data_fs = LoadDataSetMultiCoil()
+    data_fs = LoadDataSetMultiCoil(data_dir)
     
     # print("Loading T1 images")
     # target_file = data_dir + "T1/T1_under_sampled_2x_multicoil_" + str(phase)+ ".mat"
