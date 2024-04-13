@@ -32,7 +32,7 @@ cd $TMPDIR/code
 git checkout {commit_id}
 
 echo "Setting up the virtual environment"
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 
 # Install the library
