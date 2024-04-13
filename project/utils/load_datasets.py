@@ -1,5 +1,5 @@
 import blobfile as bf
-from mpi4py import MPI
+#from mpi4py import MPI
 import numpy as np
 from torch.utils.data import DataLoader, Dataset
 import pickle, os
@@ -32,8 +32,8 @@ def load_data(
         all_files,
         data_type,
         classes=classes,
-        shard=MPI.COMM_WORLD.Get_rank(),
-        num_shards=MPI.COMM_WORLD.Get_size(),
+        #shard=MPI.COMM_WORLD.Get_rank(),
+        #num_shards=MPI.COMM_WORLD.Get_size(),
     )
 
     loader = DataLoader(
