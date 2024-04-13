@@ -38,7 +38,6 @@ def main():
         image_size=args.image_size,
         data_type=args.data_type,
     )
-    return data.shape
 
     logger.log("training...")
     logger.log("je suis bien ici")

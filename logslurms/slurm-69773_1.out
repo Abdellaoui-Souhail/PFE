@@ -1,0 +1,182 @@
+Session  69773_1
+Running on  sh00
+Copying the source directory and data
+sam. 13 avril 2024 21:44:53 CEST
+Checking out the correct version of the code commit_id 4fe4ee67daa6213f2ea08f6454626728aff0ffc8
+M	job.sbatch
+Setting up the virtual environment
+Processing /tmp/abdellaoui_sou-69773/code
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting h5py>=3.9.0
+  Using cached h5py-3.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.3 MB)
+Collecting torch>=2.2.1
+  Using cached torch-2.2.2-cp38-cp38-manylinux1_x86_64.whl (755.5 MB)
+Collecting requests>=2.31.0
+  Using cached requests-2.31.0-py3-none-any.whl (62 kB)
+Collecting blobfile>=2.0.2
+  Using cached blobfile-2.1.1-py3-none-any.whl (73 kB)
+Collecting Pillow>=10.0.0
+  Using cached pillow-10.3.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Collecting fastmri>=0.3.0
+  Using cached fastmri-0.3.0-py3-none-any.whl (58 kB)
+Collecting torchvision>=0.17.1
+  Using cached torchvision-0.17.2-cp38-cp38-manylinux1_x86_64.whl (6.9 MB)
+Collecting PyYAML>=6.0
+  Using cached PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (736 kB)
+Collecting tqdm>=4.66.2
+  Using cached tqdm-4.66.2-py3-none-any.whl (78 kB)
+Collecting matplotlib>=3.7.0
+  Using cached matplotlib-3.7.5-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (9.2 MB)
+Processing /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/.cache/pip/wheels/56/8b/e8/e2ac5b75cacca356a2f270568f7ac5b6c77c6aa223bf8d2bca/mpi4py-3.1.5-cp38-cp38-linux_x86_64.whl
+Collecting numpy>=1.24.4
+  Using cached numpy-1.24.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+Collecting accelerate>=0.28.0
+  Using cached accelerate-0.29.2-py3-none-any.whl (297 kB)
+Collecting torchinfo>=1.8.0
+  Using cached torchinfo-1.8.0-py3-none-any.whl (23 kB)
+Collecting wandb>=0.16.5
+  Using cached wandb-0.16.6-py3-none-any.whl (2.2 MB)
+Collecting imageio>=2.22.1
+  Using cached imageio-2.34.0-py3-none-any.whl (313 kB)
+Collecting scipy>=1.10.1
+  Using cached scipy-1.10.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.5 MB)
+Collecting nvidia-cusparse-cu12==12.1.0.106; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cusparse_cu12-12.1.0.106-py3-none-manylinux1_x86_64.whl (196.0 MB)
+Collecting nvidia-cublas-cu12==12.1.3.1; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cublas_cu12-12.1.3.1-py3-none-manylinux1_x86_64.whl (410.6 MB)
+Collecting nvidia-nvtx-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (99 kB)
+Collecting sympy
+  Using cached sympy-1.12-py3-none-any.whl (5.7 MB)
+Collecting nvidia-cuda-runtime-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cuda_runtime_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (823 kB)
+Collecting nvidia-cudnn-cu12==8.9.2.26; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cudnn_cu12-8.9.2.26-py3-none-manylinux1_x86_64.whl (731.7 MB)
+Collecting nvidia-nccl-cu12==2.19.3; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_nccl_cu12-2.19.3-py3-none-manylinux1_x86_64.whl (166.0 MB)
+Collecting nvidia-cuda-cupti-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cuda_cupti_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (14.1 MB)
+Collecting fsspec
+  Using cached fsspec-2024.3.1-py3-none-any.whl (171 kB)
+Collecting nvidia-cusolver-cu12==11.4.5.107; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cusolver_cu12-11.4.5.107-py3-none-manylinux1_x86_64.whl (124.2 MB)
+Collecting jinja2
+  Using cached Jinja2-3.1.3-py3-none-any.whl (133 kB)
+Collecting typing-extensions>=4.8.0
+  Using cached typing_extensions-4.11.0-py3-none-any.whl (34 kB)
+Collecting filelock
+  Using cached filelock-3.13.4-py3-none-any.whl (11 kB)
+Collecting nvidia-curand-cu12==10.3.2.106; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_curand_cu12-10.3.2.106-py3-none-manylinux1_x86_64.whl (56.5 MB)
+Collecting nvidia-cufft-cu12==11.0.2.54; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cufft_cu12-11.0.2.54-py3-none-manylinux1_x86_64.whl (121.6 MB)
+Collecting networkx
+  Using cached networkx-3.1-py3-none-any.whl (2.1 MB)
+Collecting triton==2.2.0; platform_system == "Linux" and platform_machine == "x86_64" and python_version < "3.12"
+  Using cached triton-2.2.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (167.9 MB)
+Collecting nvidia-cuda-nvrtc-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cuda_nvrtc_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (23.7 MB)
+Collecting urllib3<3,>=1.21.1
+  Using cached urllib3-2.2.1-py3-none-any.whl (121 kB)
+Collecting charset-normalizer<4,>=2
+  Using cached charset_normalizer-3.3.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (141 kB)
+Collecting certifi>=2017.4.17
+  Using cached certifi-2024.2.2-py3-none-any.whl (163 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.7-py3-none-any.whl (66 kB)
+Collecting lxml~=4.9
+  Using cached lxml-4.9.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (7.1 MB)
+Collecting pycryptodomex~=3.8
+  Using cached pycryptodomex-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Collecting scikit-image>=0.16.2
+  Using cached scikit_image-0.21.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.9 MB)
+Collecting torchmetrics>=0.5.1
+  Using cached torchmetrics-1.3.2-py3-none-any.whl (841 kB)
+Collecting pytorch-lightning>=1.4
+  Using cached pytorch_lightning-2.2.2-py3-none-any.whl (801 kB)
+Collecting pandas>=1.3.4
+  Using cached pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.4 MB)
+Collecting runstats>=1.8.0
+  Using cached runstats-2.0.0-cp38-cp38-manylinux2010_x86_64.whl (413 kB)
+Collecting importlib-resources>=3.2.0; python_version < "3.10"
+  Using cached importlib_resources-6.4.0-py3-none-any.whl (38 kB)
+Collecting pyparsing>=2.3.1
+  Using cached pyparsing-3.1.2-py3-none-any.whl (103 kB)
+Collecting packaging>=20.0
+  Using cached packaging-24.0-py3-none-any.whl (53 kB)
+Collecting kiwisolver>=1.0.1
+  Using cached kiwisolver-1.4.5-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.2 MB)
+Collecting fonttools>=4.22.0
+  Using cached fonttools-4.51.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.7 MB)
+Collecting contourpy>=1.0.1
+  Using cached contourpy-1.1.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (301 kB)
+Collecting python-dateutil>=2.7
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting cycler>=0.10
+  Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting safetensors>=0.3.1
+  Using cached safetensors-0.4.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+Collecting psutil
+  Using cached psutil-5.9.8-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (288 kB)
+Collecting huggingface-hub
+  Using cached huggingface_hub-0.22.2-py3-none-any.whl (388 kB)
+Requirement already satisfied: setuptools in ./venv/lib/python3.8/site-packages (from wandb>=0.16.5->project==0.0.1) (44.0.0)
+Collecting setproctitle
+  Using cached setproctitle-1.3.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (31 kB)
+Collecting docker-pycreds>=0.4.0
+  Using cached docker_pycreds-0.4.0-py2.py3-none-any.whl (9.0 kB)
+Collecting GitPython!=3.1.29,>=1.0.0
+  Using cached GitPython-3.1.43-py3-none-any.whl (207 kB)
+Collecting Click!=8.0.0,>=7.1
+  Using cached click-8.1.7-py3-none-any.whl (97 kB)
+Collecting appdirs>=1.4.3
+  Using cached appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Collecting sentry-sdk>=1.0.0
+  Using cached sentry_sdk-1.45.0-py2.py3-none-any.whl (267 kB)
+Collecting protobuf!=4.21.0,<5,>=3.12.0; python_version < "3.9" and sys_platform == "linux"
+  Using cached protobuf-4.25.3-cp37-abi3-manylinux2014_x86_64.whl (294 kB)
+Collecting nvidia-nvjitlink-cu12
+  Using cached nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)
+Collecting mpmath>=0.19
+  Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Collecting MarkupSafe>=2.0
+  Using cached MarkupSafe-2.1.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (26 kB)
+Collecting PyWavelets>=1.1.1
+  Using cached PyWavelets-1.4.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (6.9 MB)
+Collecting lazy_loader>=0.2
+  Using cached lazy_loader-0.4-py3-none-any.whl (12 kB)
+Collecting tifffile>=2022.8.12
+  Using cached tifffile-2023.7.10-py3-none-any.whl (220 kB)
+Collecting lightning-utilities>=0.8.0
+  Using cached lightning_utilities-0.11.2-py3-none-any.whl (26 kB)
+Collecting tzdata>=2022.1
+  Using cached tzdata-2024.1-py2.py3-none-any.whl (345 kB)
+Collecting pytz>=2020.1
+  Using cached pytz-2024.1-py2.py3-none-any.whl (505 kB)
+Collecting zipp>=3.1.0; python_version < "3.10"
+  Using cached zipp-3.18.1-py3-none-any.whl (8.2 kB)
+Collecting six>=1.5
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting gitdb<5,>=4.0.1
+  Using cached gitdb-4.0.11-py3-none-any.whl (62 kB)
+Collecting smmap<6,>=3.0.1
+  Using cached smmap-5.0.1-py3-none-any.whl (24 kB)
+Building wheels for collected packages: project
+  Building wheel for project (PEP 517): started
+  Building wheel for project (PEP 517): finished with status 'done'
+  Created wheel for project: filename=project-0.0.1-py3-none-any.whl size=30267 sha256=f23c3d25fc7023dc6fec14053c44401e81045bd2b3dc698f859412c852be1b0b
+  Stored in directory: /tmp/abdellaoui_sou-69773/pip-ephem-wheel-cache-ugbd5wpr/wheels/39/6a/78/17d8d154f8bd978b02e73b652891e3fdfd2a64a532e16cd55c
+Successfully built project
+Installing collected packages: numpy, h5py, nvidia-nvjitlink-cu12, nvidia-cusparse-cu12, nvidia-cublas-cu12, nvidia-nvtx-cu12, mpmath, sympy, nvidia-cuda-runtime-cu12, nvidia-cudnn-cu12, nvidia-nccl-cu12, nvidia-cuda-cupti-cu12, fsspec, nvidia-cusolver-cu12, MarkupSafe, jinja2, typing-extensions, filelock, nvidia-curand-cu12, nvidia-cufft-cu12, networkx, triton, nvidia-cuda-nvrtc-cu12, torch, urllib3, charset-normalizer, certifi, idna, requests, lxml, pycryptodomex, blobfile, Pillow, imageio, PyWavelets, scipy, packaging, lazy-loader, tifffile, scikit-image, lightning-utilities, torchmetrics, PyYAML, tqdm, pytorch-lightning, torchvision, tzdata, six, python-dateutil, pytz, pandas, runstats, fastmri, zipp, importlib-resources, pyparsing, kiwisolver, fonttools, contourpy, cycler, matplotlib, mpi4py, safetensors, psutil, huggingface-hub, accelerate, torchinfo, setproctitle, docker-pycreds, smmap, gitdb, GitPython, Click, appdirs, sentry-sdk, protobuf, wandb, project
+Successfully installed Click-8.1.7 GitPython-3.1.43 MarkupSafe-2.1.5 Pillow-10.3.0 PyWavelets-1.4.1 PyYAML-6.0.1 accelerate-0.29.2 appdirs-1.4.4 blobfile-2.1.1 certifi-2024.2.2 charset-normalizer-3.3.2 contourpy-1.1.1 cycler-0.12.1 docker-pycreds-0.4.0 fastmri-0.3.0 filelock-3.13.4 fonttools-4.51.0 fsspec-2024.3.1 gitdb-4.0.11 h5py-3.11.0 huggingface-hub-0.22.2 idna-3.7 imageio-2.34.0 importlib-resources-6.4.0 jinja2-3.1.3 kiwisolver-1.4.5 lazy-loader-0.4 lightning-utilities-0.11.2 lxml-4.9.4 matplotlib-3.7.5 mpi4py-3.1.5 mpmath-1.3.0 networkx-3.1 numpy-1.24.4 nvidia-cublas-cu12-12.1.3.1 nvidia-cuda-cupti-cu12-12.1.105 nvidia-cuda-nvrtc-cu12-12.1.105 nvidia-cuda-runtime-cu12-12.1.105 nvidia-cudnn-cu12-8.9.2.26 nvidia-cufft-cu12-11.0.2.54 nvidia-curand-cu12-10.3.2.106 nvidia-cusolver-cu12-11.4.5.107 nvidia-cusparse-cu12-12.1.0.106 nvidia-nccl-cu12-2.19.3 nvidia-nvjitlink-cu12-12.4.127 nvidia-nvtx-cu12-12.1.105 packaging-24.0 pandas-2.0.3 project-0.0.1 protobuf-4.25.3 psutil-5.9.8 pycryptodomex-3.20.0 pyparsing-3.1.2 python-dateutil-2.9.0.post0 pytorch-lightning-2.2.2 pytz-2024.1 requests-2.31.0 runstats-2.0.0 safetensors-0.4.2 scikit-image-0.21.0 scipy-1.10.1 sentry-sdk-1.45.0 setproctitle-1.3.3 six-1.16.0 smmap-5.0.1 sympy-1.12 tifffile-2023.7.10 torch-2.2.2 torchinfo-1.8.0 torchmetrics-1.3.2 torchvision-0.17.2 tqdm-4.66.2 triton-2.2.0 typing-extensions-4.11.0 tzdata-2024.1 urllib3-2.2.1 wandb-0.16.6 zipp-3.18.1
+Training
+/tmp/abdellaoui_sou-69773/code
+Logging to /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil
+creating model and diffusion...
+creating data loader...
+je suis perdu
