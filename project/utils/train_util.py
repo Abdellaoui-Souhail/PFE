@@ -45,7 +45,7 @@ class TrainLoop:
         fp16_scale_growth=1e-3,
         schedule_sampler=None,
         weight_decay=0.0,
-        lr_anneal_steps=0,
+        lr_anneal_steps=5000,
         save_dir=''
     ):
         logger.log("INIT")
@@ -67,7 +67,7 @@ class TrainLoop:
         self.fp16_scale_growth = fp16_scale_growth
         self.schedule_sampler = schedule_sampler or UniformSampler(diffusion)
         self.weight_decay = weight_decay
-        self.lr_anneal_steps = lr_anneal_steps
+        self.lr_anneal_steps = 5000 # modifie ici
         self.save_dir = save_dir
 
         logger.log("Step 1 FINISH")
@@ -77,8 +77,7 @@ class TrainLoop:
 
         self.step = 0
         self.resume_step = 0
-        # self.global_batch = self.batch_size * dist.get_world_size()
-        self.global_batch = self.batch_size
+
 
         self.model_params = list(self.model.parameters())
         self.master_params = self.model_params
@@ -259,7 +258,7 @@ class TrainLoop:
 
     def log_step(self):
         logger.logkv("step", self.step + self.resume_step)
-        logger.logkv("samples", (self.step + self.resume_step + 1) * self.global_batch)
+        logger.logkv("samples", (self.step + self.resume_step + 1) * self.batch_size)
         if self.use_fp16:
             logger.logkv("lg_loss_scale", self.lg_loss_scale)
 

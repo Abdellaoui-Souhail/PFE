@@ -67,16 +67,16 @@ def create_argparser():
         schedule_sampler="uniform",
         lr=1e-4,
         weight_decay=0.0,
-        lr_anneal_steps=0,
+        lr_anneal_steps=5000,
         batch_size=1,
         microbatch=-1,  # -1 disables microbatches
         ema_rate="0.9999",  # comma-separated list of EMA values
         log_interval=100,
-        save_interval=10000,
+        save_interval=1000,
         resume_checkpoint="",
         use_fp16=False,
         fp16_scale_growth=1e-3,
-        save_dir='img_space_320',
+        save_dir='img_space_512',
     )
     defaults.update(model_and_diffusion_defaults())
     parser = argparse.ArgumentParser()
