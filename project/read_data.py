@@ -1,8 +1,8 @@
 import numpy as np
 import h5py
 import fastmri 
-from fastmri.data import transforms as T
 import os
+import torch as T
 
 def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
 
@@ -23,6 +23,7 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
     load_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet"
     data = []
     desired_size = [512, 512]
+    device = 'cuda' if T.cuda.is_available() else 'cpu'
 
     images_list = []
 
