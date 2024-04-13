@@ -1,5 +1,8 @@
 import argparse
 
+import sys
+sys.path.append("/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/project")
+
 from utils import dist_util, logger
 from utils.load_datasets import load_data
 from utils.resample import create_named_schedule_sampler
