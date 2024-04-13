@@ -1,5 +1,4 @@
 import blobfile as bf
-#from mpi4py import MPI
 import numpy as np
 from torch.utils.data import DataLoader, Dataset
 import pickle, os
@@ -24,13 +23,11 @@ def load_data(
     """
     if not data_dir:
         raise ValueError("unspecified data directory")
-    all_files = _list_image_files_recursively(data_dir)
     classes = None
 
     dataset = ImageDataset(
         image_size,
         data_dir,
-        all_files,
         data_type,
     )
 
@@ -55,7 +52,7 @@ def _list_image_files_recursively(data_dir):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, resolution, data_dir, image_paths, data_type, classes=None, shard=0, num_shards=1):
+    def __init__(self, resolution, data_dir, data_type, classes=None, shard=0, num_shards=1):
         super().__init__()
         self.resolution = resolution
         if data_type == "singlecoil":
