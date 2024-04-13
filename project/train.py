@@ -1,7 +1,7 @@
 import argparse
 
 import sys
-sys.path.append("./")
+sys.path.append("./utils")
 
 from utils import dist_util, logger
 from utils.load_datasets import load_data
