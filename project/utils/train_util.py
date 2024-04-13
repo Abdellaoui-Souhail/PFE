@@ -170,9 +170,8 @@ class TrainLoop:
     def run_loop(self):
         logger.log("BEGIN LOOP")
         while (self.step + self.resume_step < self.lr_anneal_steps):
-            logger.log("STEP") #, self.step)
+            logger.log("STEP")
             batch, cond = next(self.data)
-            logger.log("BATCH")
             self.run_step(batch, cond)
             if self.step % self.log_interval == 0 and self.step != 0:
                 logger.dumpkvs()
@@ -184,7 +183,6 @@ class TrainLoop:
             self.save()
 
     def run_step(self, batch, cond):
-        logger.log("IN RUN STEP")
         self.forward_backward(batch, cond)
         self.optimize()
         # if self.use_fp16:
@@ -192,10 +190,8 @@ class TrainLoop:
         # else:
         #     self.optimize_normal()
         self.log_step()
-        logger.log("OUT RUN STEP")
 
     def forward_backward(self, batch, cond):
-        logger.log("IN FORWARD BACKWARD")
         zero_grad(self.model_params)
         with autocast():  # Automatic Mixed Precision context
             # Directly use the full batch since microbatching is disabled
@@ -208,17 +204,14 @@ class TrainLoop:
             )
             loss = (losses["loss"] * weights).mean()  # Compute the weighted mean loss
             self.scaler.scale(loss).backward()
-        logger.log("IN FORWARD BACKWARD")
         
     def optimize(self):
-        logger.log("IN OPTIMIZE")
         self.scaler.step(self.opt)  # Make an optimizer step using the scaled gradients
         self.scaler.update()  # Update the scale for the next iteration
         for rate, params in zip(self.ema_rate, self.ema_params):
             update_ema(params, self.master_params, rate=rate)
         self._log_grad_norm()
         self._anneal_lr()
-        logger.log("OUT OPTIMIZE")
 
     def optimize_fp16(self):
         if any(not th.isfinite(p.grad).all() for p in self.model_params):
