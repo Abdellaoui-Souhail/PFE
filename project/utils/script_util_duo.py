@@ -79,7 +79,7 @@ def create_model(
 ):
     if image_size == 512:
         channel_mult = (1, 1, 2, 2, 4, 4)
-    if image_size == 256:
+    elif image_size == 256:
         channel_mult = (1, 1, 2, 2, 4, 4)
     elif image_size == 320:
         channel_mult = (1, 1, 2, 2, 4, 4)
