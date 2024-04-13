@@ -1,0 +1,40 @@
+Note : basculement sur 'a98a46d60366cc1ed3604afb2934541744948090'.
+
+Vous êtes dans l'état « HEAD détachée ». Vous pouvez visiter, faire des modifications
+expérimentales et les valider. Il vous suffit de faire un autre basculement pour
+abandonner les commits que vous faites dans cet état sans impacter les autres branches
+
+Si vous voulez créer une nouvelle branche pour conserver les commits que vous créez,
+il vous suffit d'utiliser l'option -c de la commande switch comme ceci :
+
+  git switch -c <nom-de-la-nouvelle-branche>
+
+Ou annuler cette opération avec :
+
+  git switch -
+
+Désactivez ce conseil en renseignant la variable de configuration advice.detachedHead à false
+
+HEAD est maintenant sur a98a46d bon
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/tmp/abdellaoui_sou-69778/code/project/train.py", line 89, in <module>
+    main()
+  File "/tmp/abdellaoui_sou-69778/code/project/train.py", line 27, in main
+    model, diffusion = create_model_and_diffusion(
+  File "/tmp/abdellaoui_sou-69778/code/project/utils/script_util_duo.py", line 46, in create_model_and_diffusion
+    model = create_model(
+  File "/tmp/abdellaoui_sou-69778/code/project/utils/script_util_duo.py", line 99, in create_model
+    return UNetModel(
+  File "/tmp/abdellaoui_sou-69778/code/project/utils/unet.py", line 359, in __init__
+    ResBlock(
+  File "/tmp/abdellaoui_sou-69778/code/project/utils/unet.py", line 143, in __init__
+    normalization(channels),
+  File "/tmp/abdellaoui_sou-69778/code/project/utils/nn.py", line 100, in normalization
+    return GroupNorm32(32, channels)
+  File "/tmp/abdellaoui_sou-69778/code/venv/lib/python3.8/site-packages/torch/nn/modules/normalization.py", line 266, in __init__
+    raise ValueError('num_channels must be divisible by num_groups')
+ValueError: num_channels must be divisible by num_groups
