@@ -131,8 +131,6 @@ def get_fs_multicoil(data_dir, phase = 'train'):
 
     data_fs = LoadDataSetMultiCoil(data_dir)
 
-    print(data_fs.shape)
-
     return data_fs
 
 

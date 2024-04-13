@@ -31,12 +31,14 @@ def main():
     schedule_sampler = create_named_schedule_sampler(args.schedule_sampler, diffusion)
 
     logger.log("creating data loader...")
+    logger.log("je suis perdu")
     data = load_data(
         data_dir=args.data_dir,
         batch_size=args.batch_size,
         image_size=args.image_size,
         data_type=args.data_type,
     )
+    return data.shape
 
     logger.log("training...")
     logger.log("je suis bien ici")
