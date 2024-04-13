@@ -15,7 +15,7 @@ def LoadDataSetMultiCoil(**kwargs):
     images_list = []
 
     # Adjusted to handle file indexing
-    for k in range(1, 40):
+    for k in range(1, 14):
         if k < 10:
             k_index = f"P00{k}"
         elif k < 100:
@@ -57,12 +57,13 @@ def LoadDataSetMultiCoil(**kwargs):
             )
 
             image_list = image.reshape(nframe * nslice, 512, 512)
-            print(image_mist.shape)
+            print(image_list.shape)
             images_list.append(image_list)
 
 
     # Concatenate all images at once
     data = np.concatenate(images_list, axis=0)
+    np.save('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/data.npy', data)
     print(data.shape)
     return data
 
