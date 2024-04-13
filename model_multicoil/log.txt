@@ -1,0 +1,11 @@
+Logging to /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil
+creating model and diffusion...
+creating data loader...
+training...
+INIT
+Step 1 FINISH
+Step 2 FINISH
+Step 3 FINISH
+End INIT
+BEGIN LOOP
+STEP

@@ -48,7 +48,6 @@ class TrainLoop:
         lr_anneal_steps=5000,
         save_dir=''
     ):
-        logger.log("INIT")
         self.model = model
         self.diffusion = diffusion
         self.data = data
@@ -67,13 +66,10 @@ class TrainLoop:
         self.fp16_scale_growth = fp16_scale_growth
         self.schedule_sampler = schedule_sampler or UniformSampler(diffusion)
         self.weight_decay = weight_decay
-        self.lr_anneal_steps = 5000 # modifie ici
+        self.lr_anneal_steps = lr_anneal_steps # modifie ici
         self.save_dir = save_dir
 
-        logger.log("Step 1 FINISH")
         self.scaler = GradScaler()
-
-        logger.log("Step 2 FINISH")
 
         self.step = 0
         self.resume_step = 0
@@ -88,7 +84,6 @@ class TrainLoop:
         if self.use_fp16:
             self._setup_fp16()
 
-        logger.log("Step 3 FINISH")
         self.opt = AdamW(self.master_params, lr=self.lr, weight_decay=self.weight_decay)
         if self.resume_step:
             self._load_optimizer_state()
@@ -101,7 +96,6 @@ class TrainLoop:
             self.ema_params = [
                 copy.deepcopy(self.master_params) for _ in range(len(self.ema_rate))
             ]
-        logger.log("End INIT")
 
     
     def _load_and_sync_parameters(self):
