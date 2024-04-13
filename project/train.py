@@ -31,7 +31,6 @@ def main():
     schedule_sampler = create_named_schedule_sampler(args.schedule_sampler, diffusion)
 
     logger.log("creating data loader...")
-    logger.log("je suis perdu")
     data = load_data(
         data_dir=args.data_dir,
         batch_size=args.batch_size,
@@ -40,7 +39,6 @@ def main():
     )
 
     logger.log("training...")
-    logger.log("je suis bien ici")
     TrainLoop(
         model=model,
         diffusion=diffusion,
@@ -59,7 +57,7 @@ def main():
         lr_anneal_steps=args.lr_anneal_steps,
         save_dir=args.save_dir
     ).run_loop()
-    logger.log("j'ai fini l'entrainement")
+    logger.log("Entrainement Fini")
 
 
 def create_argparser():
