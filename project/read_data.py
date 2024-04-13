@@ -2,7 +2,7 @@ import numpy as np
 import h5py
 import fastmri 
 import os
-import torch as T
+from fastmri.data import transforms as T
 
 def LoadDataSetSingleCoil(load_dir, variable = "data_fs"):
 
@@ -22,8 +22,8 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
 
     load_dir = "/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet"
     data = []
-    desired_size = [512, 512]
-    device = 'cuda' if T.cuda.is_available() else 'cpu'
+    # Desired dimensions
+    desired_ny, desired_nx = 512, 512
 
     images_list = []
 
@@ -44,31 +44,32 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
         with h5py.File(file_name, 'r') as f:
             newvalue = f['kspace_full']
             fullmulti = newvalue["real"] + 1j * newvalue["imag"]
-            fullmulti = T.tensor(fullmulti, dtype=T.complex64).to(device)  # Convert and move to GPU in one step
-
             [nframe, nslice, ncoil, ny, nx] = fullmulti.shape
+            
+            fullmulti = T.to_tensor(fullmulti)
 
-            for i in range(nframe):
-                k_space = fullmulti[i]  # Process all slices at once per frame
+            complex_image = fastmri.ifft2c(fullmulti)
+            image_rss = fastmri.rss(complex_image, dim=2)
+            image_rss = image_rss.numpy()
+            image = image_rss[:,:,:,:,0] + 1j*image_rss[:,:,:,:,1]
 
-                # Perform the inverse FFT and compute RSS on the GPU
-                complex_image = fastmri.ifft2c(k_space)
-                image_rss = fastmri.rss(complex_image, dim=1)  # Adjust dimension if necessary
+            # Calculate padding amounts
+            pad_y = (desired_ny - ny) if ny < desired_ny else 0
+            pad_x = (desired_nx - nx) if nx < desired_nx else 0
 
-                # Move to CPU and convert to numpy for further processing
-                image_rss = image_rss.to('cpu').numpy().view(np.complex64)
+            # Padding to be applied on both sides of the dimensions
+            pad_y_before = pad_y // 2
+            pad_y_after = pad_y - pad_y_before
+            pad_x_before = pad_x // 2
+            pad_x_after = pad_x - pad_x_before
 
-                for j in range(nslice):
-                    image_finale = image_rss[j]
+            # Apply padding
+            image = np.pad(
+                image, pad_width=((0, 0), (0, 0), (pad_y_before, pad_y_after), (pad_x_before, pad_x_after)), mode='constant', constant_values=(0, 0)
+            )
 
-                    # Calculate padding if required
-                    pad_0 = max(0, desired_size[0] - image_finale.shape[0])
-                    pad_1 = max(0, desired_size[1] - image_finale.shape[1])
-                    image = np.pad(image_finale, ((0, pad_0), (0, pad_1)), mode='constant')
-                    image = np.expand_dims(image, axis=0)
+            image_list = image.reshape(nframe * nslice, 512, 512)
 
-                    # Store images in a list
-                    images_list.append(image)
 
     # Concatenate all images at once
     data = np.concatenate(images_list, axis=0)
