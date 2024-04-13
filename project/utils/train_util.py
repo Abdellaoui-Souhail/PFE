@@ -7,7 +7,7 @@ import numpy as np
 import torch as th
 from torch.optim import AdamW
 
-from . import logger
+from . import dist_util, logger
 from .fp16_util import (
     make_master_params,
     master_params_to_model_params,
@@ -157,17 +157,30 @@ class TrainLoop:
             return th.load(checkpoint_path, map_location='cpu')
 
     def _load_ema_parameters(self, rate):
+        # ema_params = copy.deepcopy(self.master_params)
+
+        # main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
+        # ema_checkpoint = find_ema_checkpoint(main_checkpoint, self.resume_step, rate)
+        # if ema_checkpoint:
+        #     logger.log(f"loading EMA from checkpoint: {ema_checkpoint}...")
+        #     ema_params = self._state_dict_to_master_params(
+        #         self._load_state_dict(ema_checkpoint)
+        #     )
+
+        # return ema_params
         ema_params = copy.deepcopy(self.master_params)
 
         main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
         ema_checkpoint = find_ema_checkpoint(main_checkpoint, self.resume_step, rate)
         if ema_checkpoint:
             logger.log(f"loading EMA from checkpoint: {ema_checkpoint}...")
-            ema_params = self._state_dict_to_master_params(
-                self._load_state_dict(ema_checkpoint)
+            state_dict = dist_util.load_state_dict(
+                ema_checkpoint, map_location=dist_util.dev()
             )
+            ema_params = self._state_dict_to_master_params(state_dict)
 
         return ema_params
+
 
     def _load_optimizer_state(self):
         main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
@@ -176,13 +189,27 @@ class TrainLoop:
         )
         if bf.exists(opt_checkpoint):
             logger.log(f"loading optimizer state from checkpoint: {opt_checkpoint}")
-            self.opt.load_state_dict(
-                self._load_state_dict(opt_checkpoint)
+            state_dict = dist_util.load_state_dict(
+                opt_checkpoint, map_location=dist_util.dev()
             )
+            self.opt.load_state_dict(state_dict)
+
+        # def _load_optimizer_state(self):
+        #     main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
+        #     opt_checkpoint = bf.join(
+        #         bf.dirname(main_checkpoint), f"opt{self.resume_step:06}.pt"
+        #     )
+        #     if bf.exists(opt_checkpoint):
+        #         logger.log(f"loading optimizer state from checkpoint: {opt_checkpoint}")
+        #         self.opt.load_state_dict(
+        #             self._load_state_dict(opt_checkpoint)
+        #         )
+
 
     def _setup_fp16(self):
         self.master_params = make_master_params(self.model_params)
         self.model.convert_to_fp16()
+
 
     def run_loop(self):
         while (self.step + self.resume_step < self.lr_anneal_steps):
@@ -198,6 +225,7 @@ class TrainLoop:
         if (self.step - 1) % self.save_interval != 0:
             self.save()
 
+
     def run_step(self, batch, cond):
         self.forward_backward(batch, cond)
         if self.use_fp16:
@@ -205,6 +233,7 @@ class TrainLoop:
         else:
             self.optimize_normal()
         self.log_step()
+
 
     def forward_backward(self, batch, cond):
         zero_grad(self.model_params)
@@ -228,6 +257,12 @@ class TrainLoop:
 
             losses = compute_losses()
 
+#             if last_batch or not self.use_ddp:
+#                 losses = compute_losses()
+#             else:
+#                 with self.ddp_model.no_sync():
+#                     losses = compute_losses()
+
             if isinstance(self.schedule_sampler, LossAwareSampler):
                 self.schedule_sampler.update_with_local_losses(
                     t, losses["loss"].detach()
@@ -242,6 +277,19 @@ class TrainLoop:
                 (loss * loss_scale).backward()
             else:
                 loss.backward()
+
+
+#                 )
+
+#             loss = (losses["loss"] * weights).mean()
+#             log_loss_dict(
+#                 self.diffusion, t, {k: v * weights for k, v in losses.items()}
+#             )
+#             if self.use_fp16:
+#                 loss_scale = 2 ** self.lg_loss_scale
+#                 (loss * loss_scale).backward()
+#             else:
+#                 loss.backward()
 
     def optimize_fp16(self):
         if any(not th.isfinite(p.grad).all() for p in self.model_params):
@@ -372,59 +420,7 @@ def log_loss_dict(diffusion, ts, losses):
 
         # dist_util.sync_params(self.model.parameters())
 
-#     def _load_ema_parameters(self, rate):
-#         ema_params = copy.deepcopy(self.master_params)
 
-#         main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
-#         ema_checkpoint = find_ema_checkpoint(main_checkpoint, self.resume_step, rate)
-#         if ema_checkpoint:
-#             if dist.get_rank() == 0:
-#                 logger.log(f"loading EMA from checkpoint: {ema_checkpoint}...")
-#                 state_dict = dist_util.load_state_dict(
-#                     ema_checkpoint, map_location=dist_util.dev()
-#                 )
-#                 ema_params = self._state_dict_to_master_params(state_dict)
-
-#         dist_util.sync_params(ema_params)
-#         return ema_params
-
-#     def _load_optimizer_state(self):
-#         main_checkpoint = find_resume_checkpoint() or self.resume_checkpoint
-#         opt_checkpoint = bf.join(
-#             bf.dirname(main_checkpoint), f"opt{self.resume_step:06}.pt"
-#         )
-#         if bf.exists(opt_checkpoint):
-#             logger.log(f"loading optimizer state from checkpoint: {opt_checkpoint}")
-#             state_dict = dist_util.load_state_dict(
-#                 opt_checkpoint, map_location=dist_util.dev()
-#             )
-#             self.opt.load_state_dict(state_dict)
-
-#     def _setup_fp16(self):
-#         self.master_params = make_master_params(self.model_params)
-#         self.model.convert_to_fp16()
-
-#     def run_loop(self):
-#         while (self.step + self.resume_step < self.lr_anneal_steps):
-#             print("Step:", self.step)
-#             batch, cond = next(self.data)
-#             self.run_step(batch, cond)
-#             if self.step % self.log_interval == 0 and self.step != 0:
-#                 logger.dumpkvs()
-#             if self.step % self.save_interval == 0 and self.step != 0:
-#                 self.save()
-#             self.step += 1
-#         # Save the last checkpoint if it wasn't already saved.
-#         if (self.step - 1) % self.save_interval != 0:
-#             self.save()
-
-#     def run_step(self, batch, cond):
-#         self.forward_backward(batch, cond)
-#         if self.use_fp16:
-#             self.optimize_fp16()
-#         else:
-#             self.optimize_normal()
-#         self.log_step()
 
 #     def forward_backward(self, batch, cond):
 #         zero_grad(self.model_params)
