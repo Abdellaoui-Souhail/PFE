@@ -1,7 +1,8 @@
 import argparse
-
+import os
+print(os.getcwd())
 import sys
-sys.path.append("./utils")
+sys.path.append("/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/project")
 
 from utils import dist_util, logger
 from utils.load_datasets import load_data
