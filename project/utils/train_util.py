@@ -170,8 +170,9 @@ class TrainLoop:
     def run_loop(self):
         logger.log("BEGIN LOOP")
         while (self.step + self.resume_step < self.lr_anneal_steps):
-            print("Step:", self.step)
+            logger.log("STEP") #, self.step)
             batch, cond = next(self.data)
+            logger.log("BATCH")
             self.run_step(batch, cond)
             if self.step % self.log_interval == 0 and self.step != 0:
                 logger.dumpkvs()

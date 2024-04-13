@@ -4,6 +4,7 @@ import numpy as np
 from torch.utils.data import DataLoader, Dataset
 import pickle, os
 import read_data
+from . import dist_util, logger
 
 def load_data(
     *, data_dir, batch_size, image_size, data_type
@@ -31,9 +32,6 @@ def load_data(
         data_dir,
         all_files,
         data_type,
-        classes=classes,
-        #shard=MPI.COMM_WORLD.Get_rank(),
-        #num_shards=MPI.COMM_WORLD.Get_size(),
     )
 
     loader = DataLoader(
