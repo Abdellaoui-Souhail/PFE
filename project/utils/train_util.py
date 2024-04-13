@@ -199,12 +199,12 @@ class TrainLoop:
         zero_grad(self.model_params)
         with autocast():  # Automatic Mixed Precision context
             # Directly use the full batch since microbatching is disabled
-            t, weights = self.schedule_sampler.sample(batch.shape[0], self.device)
+            t, weights = self.schedule_sampler.sample(batch.shape[0], dist_util.dev())
             losses = self.diffusion.training_losses(
                 self.model,
-                batch.to(self.device),  # Move the full batch to the device at once
+                batch.to(dist_util.dev()),  # Move the full batch to the device at once
                 t,
-                model_kwargs={k: v.to(self.device) for k, v in cond.items()}
+                model_kwargs={k: v.to(dist_util.dev()) for k, v in cond.items()}
             )
             loss = (losses["loss"] * weights).mean()  # Compute the weighted mean loss
             self.scaler.scale(loss).backward()
