@@ -1,0 +1,16 @@
+Session  69680_1
+Running on  sh08
+Copying the source directory and data
+sam. 13 avril 2024 05:20:00 CEST
+Checking out the correct version of the code commit_id 1e3d939f41948a257ff9f843fa8cbcf2140572c8
+M	job.sbatch
+D	logslurms/slurm-69676_1.err
+D	logslurms/slurm-69676_1.out
+D	logslurms/slurm-69678_1.err
+D	logslurms/slurm-69678_1.out
+D	logslurms/slurm-69679_1.err
+D	logslurms/slurm-69679_1.out
+Setting up the virtual environment
+Processing /tmp/abdellaoui_sou-69680/code
+Training
+/tmp/abdellaoui_sou-69680/code

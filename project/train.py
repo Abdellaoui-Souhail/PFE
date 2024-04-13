@@ -4,16 +4,16 @@ print(os.getcwd())
 import sys
 sys.path.append("/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/project")
 
-from utils import dist_util, logger
-from utils.load_datasets import load_data
-from utils.resample import create_named_schedule_sampler
-from utils.script_util_duo import (
+from project.utils import dist_util, logger
+from project.utils.load_datasets import load_data
+from project.utils.resample import create_named_schedule_sampler
+from project.utils.script_util_duo import (
     model_and_diffusion_defaults,
     create_model_and_diffusion,
     args_to_dict,
     add_dict_to_argparser,
 )
-from utils.train_util import TrainLoop
+from project.utils.train_util import TrainLoop
 
 
 def main():
