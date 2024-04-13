@@ -1,0 +1,154 @@
+Session  69667_1
+Running on  sh08
+Copying the source directory and data
+sam. 13 avril 2024 03:47:15 CEST
+Checking out the correct version of the code commit_id 915c1e3df115f6a37830b35049d53d1a5fd8ee52
+M	job.sbatch
+Setting up the virtual environment
+Processing /tmp/abdellaoui_sou-69667/code
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting numpy==1.24.4
+  Using cached numpy-1.24.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+Collecting imageio==2.22.1
+  Downloading imageio-2.22.1-py3-none-any.whl (3.4 MB)
+Collecting mpi4py==3.1.4
+  Downloading mpi4py-3.1.4.tar.gz (2.5 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting Pillow==10.0.0
+  Downloading Pillow-10.0.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+Collecting blobfile==2.0.2
+  Downloading blobfile-2.0.2-py3-none-any.whl (74 kB)
+Collecting h5py==3.9.0
+  Downloading h5py-3.9.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.8 MB)
+Collecting fastmri==0.3.0
+  Using cached fastmri-0.3.0-py3-none-any.whl (58 kB)
+Collecting torch==2.0.1
+  Downloading torch-2.0.1-cp38-cp38-manylinux1_x86_64.whl (619.9 MB)
+Collecting filelock~=3.0
+  Using cached filelock-3.13.4-py3-none-any.whl (11 kB)
+Collecting urllib3<3,>=1.25.3
+  Using cached urllib3-2.2.1-py3-none-any.whl (121 kB)
+Collecting lxml~=4.9
+  Using cached lxml-4.9.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (7.1 MB)
+Collecting pycryptodomex~=3.8
+  Using cached pycryptodomex-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Collecting pytorch-lightning>=1.4
+  Using cached pytorch_lightning-2.2.2-py3-none-any.whl (801 kB)
+Collecting torchvision>=0.8.1
+  Using cached torchvision-0.17.2-cp38-cp38-manylinux1_x86_64.whl (6.9 MB)
+Collecting torchmetrics>=0.5.1
+  Using cached torchmetrics-1.3.2-py3-none-any.whl (841 kB)
+Collecting pandas>=1.3.4
+  Using cached pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (12.4 MB)
+Collecting PyYAML>=5.3.1
+  Using cached PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (736 kB)
+Collecting scikit-image>=0.16.2
+  Using cached scikit_image-0.21.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (13.9 MB)
+Collecting runstats>=1.8.0
+  Using cached runstats-2.0.0-cp38-cp38-manylinux2010_x86_64.whl (413 kB)
+Collecting sympy
+  Using cached sympy-1.12-py3-none-any.whl (5.7 MB)
+Collecting nvidia-cuda-cupti-cu11==11.7.101; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cuda_cupti_cu11-11.7.101-py3-none-manylinux1_x86_64.whl (11.8 MB)
+Collecting nvidia-cuda-runtime-cu11==11.7.99; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cuda_runtime_cu11-11.7.99-py3-none-manylinux1_x86_64.whl (849 kB)
+Collecting triton==2.0.0; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading triton-2.0.0-1-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (63.2 MB)
+Collecting nvidia-cufft-cu11==10.9.0.58; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cufft_cu11-10.9.0.58-py3-none-manylinux1_x86_64.whl (168.4 MB)
+Collecting nvidia-cuda-nvrtc-cu11==11.7.99; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cuda_nvrtc_cu11-11.7.99-2-py3-none-manylinux1_x86_64.whl (21.0 MB)
+Collecting nvidia-cublas-cu11==11.10.3.66; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cublas_cu11-11.10.3.66-py3-none-manylinux1_x86_64.whl (317.1 MB)
+Collecting nvidia-cudnn-cu11==8.5.0.96; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cudnn_cu11-8.5.0.96-2-py3-none-manylinux1_x86_64.whl (557.1 MB)
+Collecting nvidia-cusparse-cu11==11.7.4.91; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cusparse_cu11-11.7.4.91-py3-none-manylinux1_x86_64.whl (173.2 MB)
+Collecting nvidia-nvtx-cu11==11.7.91; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_nvtx_cu11-11.7.91-py3-none-manylinux1_x86_64.whl (98 kB)
+Collecting networkx
+  Using cached networkx-3.1-py3-none-any.whl (2.1 MB)
+Collecting typing-extensions
+  Using cached typing_extensions-4.11.0-py3-none-any.whl (34 kB)
+Collecting jinja2
+  Using cached Jinja2-3.1.3-py3-none-any.whl (133 kB)
+Collecting nvidia-curand-cu11==10.2.10.91; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_curand_cu11-10.2.10.91-py3-none-manylinux1_x86_64.whl (54.6 MB)
+Collecting nvidia-cusolver-cu11==11.4.0.1; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_cusolver_cu11-11.4.0.1-2-py3-none-manylinux1_x86_64.whl (102.6 MB)
+Collecting nvidia-nccl-cu11==2.14.3; platform_system == "Linux" and platform_machine == "x86_64"
+  Downloading nvidia_nccl_cu11-2.14.3-py3-none-manylinux1_x86_64.whl (177.1 MB)
+Collecting lightning-utilities>=0.8.0
+  Using cached lightning_utilities-0.11.2-py3-none-any.whl (26 kB)
+Collecting tqdm>=4.57.0
+  Using cached tqdm-4.66.2-py3-none-any.whl (78 kB)
+Collecting fsspec[http]>=2022.5.0
+  Using cached fsspec-2024.3.1-py3-none-any.whl (171 kB)
+Collecting packaging>=20.0
+  Using cached packaging-24.0-py3-none-any.whl (53 kB)
+Collecting tzdata>=2022.1
+  Using cached tzdata-2024.1-py2.py3-none-any.whl (345 kB)
+Collecting pytz>=2020.1
+  Using cached pytz-2024.1-py2.py3-none-any.whl (505 kB)
+Collecting python-dateutil>=2.8.2
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting PyWavelets>=1.1.1
+  Using cached PyWavelets-1.4.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (6.9 MB)
+Collecting lazy_loader>=0.2
+  Using cached lazy_loader-0.4-py3-none-any.whl (12 kB)
+Collecting scipy>=1.8
+  Using cached scipy-1.10.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.5 MB)
+Collecting tifffile>=2022.8.12
+  Using cached tifffile-2023.7.10-py3-none-any.whl (220 kB)
+Collecting mpmath>=0.19
+  Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Collecting wheel
+  Using cached wheel-0.43.0-py3-none-any.whl (65 kB)
+Requirement already satisfied: setuptools in ./venv/lib/python3.8/site-packages (from nvidia-cuda-cupti-cu11==11.7.101; platform_system == "Linux" and platform_machine == "x86_64"->torch==2.0.1->project==0.0.1) (44.0.0)
+Collecting lit
+  Downloading lit-18.1.3-py3-none-any.whl (96 kB)
+Collecting cmake
+  Downloading cmake-3.29.2-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (26.7 MB)
+Collecting MarkupSafe>=2.0
+  Using cached MarkupSafe-2.1.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (26 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1; extra == "http"
+  Downloading aiohttp-3.9.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+Collecting six>=1.5
+  Using cached six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting attrs>=17.3.0
+  Using cached attrs-23.2.0-py3-none-any.whl (60 kB)
+Collecting aiosignal>=1.1.2
+  Using cached aiosignal-1.3.1-py3-none-any.whl (7.6 kB)
+Collecting multidict<7.0,>=4.5
+  Using cached multidict-6.0.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (129 kB)
+Collecting async-timeout<5.0,>=4.0; python_version < "3.11"
+  Using cached async_timeout-4.0.3-py3-none-any.whl (5.7 kB)
+Collecting frozenlist>=1.1.1
+  Using cached frozenlist-1.4.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (240 kB)
+Collecting yarl<2.0,>=1.0
+  Using cached yarl-1.9.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (308 kB)
+Collecting idna>=2.0
+  Downloading idna-3.7-py3-none-any.whl (66 kB)
+Building wheels for collected packages: project, mpi4py
+  Building wheel for project (PEP 517): started
+  Building wheel for project (PEP 517): finished with status 'done'
+  Created wheel for project: filename=project-0.0.1-py3-none-any.whl size=31104 sha256=f3346ca58e4f1a8ddd33f3d1171b6b39899555afa176f13d1878e8f85051a2bd
+  Stored in directory: /tmp/abdellaoui_sou-69667/pip-ephem-wheel-cache-jbitol4q/wheels/74/d4/33/6882ee181fccc3873a04535aec765fdf05b870a22f8b566752
+  Building wheel for mpi4py (PEP 517): started
+  Building wheel for mpi4py (PEP 517): finished with status 'done'
+  Created wheel for mpi4py: filename=mpi4py-3.1.4-cp38-cp38-linux_x86_64.whl size=5997367 sha256=f23c625d641fb3fc7749cc3cb5e0c86d2d124cefdb9f0994070f481aa56a306e
+  Stored in directory: /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/.cache/pip/wheels/f3/35/48/0b9a7076995eea5ea64a7e4bc3f0f342f453080795276264e7
+Successfully built project mpi4py
+Installing collected packages: numpy, Pillow, imageio, mpi4py, filelock, urllib3, lxml, pycryptodomex, blobfile, h5py, packaging, typing-extensions, lightning-utilities, mpmath, sympy, wheel, nvidia-cuda-cupti-cu11, nvidia-cuda-runtime-cu11, lit, cmake, triton, nvidia-cufft-cu11, nvidia-cuda-nvrtc-cu11, nvidia-cublas-cu11, nvidia-cudnn-cu11, nvidia-cusparse-cu11, nvidia-nvtx-cu11, networkx, MarkupSafe, jinja2, nvidia-curand-cu11, nvidia-cusolver-cu11, nvidia-nccl-cu11, torch, torchmetrics, tqdm, attrs, frozenlist, aiosignal, multidict, async-timeout, idna, yarl, aiohttp, fsspec, PyYAML, pytorch-lightning, torchvision, tzdata, pytz, six, python-dateutil, pandas, PyWavelets, lazy-loader, scipy, tifffile, scikit-image, runstats, fastmri, project
+Successfully installed MarkupSafe-2.1.5 Pillow-10.0.0 PyWavelets-1.4.1 PyYAML-6.0.1 aiohttp-3.9.4 aiosignal-1.3.1 async-timeout-4.0.3 attrs-23.2.0 blobfile-2.0.2 cmake-3.29.2 fastmri-0.3.0 filelock-3.13.4 frozenlist-1.4.1 fsspec-2024.3.1 h5py-3.9.0 idna-3.7 imageio-2.22.1 jinja2-3.1.3 lazy-loader-0.4 lightning-utilities-0.11.2 lit-18.1.3 lxml-4.9.4 mpi4py-3.1.4 mpmath-1.3.0 multidict-6.0.5 networkx-3.1 numpy-1.24.4 nvidia-cublas-cu11-11.10.3.66 nvidia-cuda-cupti-cu11-11.7.101 nvidia-cuda-nvrtc-cu11-11.7.99 nvidia-cuda-runtime-cu11-11.7.99 nvidia-cudnn-cu11-8.5.0.96 nvidia-cufft-cu11-10.9.0.58 nvidia-curand-cu11-10.2.10.91 nvidia-cusolver-cu11-11.4.0.1 nvidia-cusparse-cu11-11.7.4.91 nvidia-nccl-cu11-2.14.3 nvidia-nvtx-cu11-11.7.91 packaging-24.0 pandas-2.0.3 project-0.0.1 pycryptodomex-3.20.0 python-dateutil-2.9.0.post0 pytorch-lightning-2.2.2 pytz-2024.1 runstats-2.0.0 scikit-image-0.21.0 scipy-1.10.1 six-1.16.0 sympy-1.12 tifffile-2023.7.10 torch-2.0.1 torchmetrics-1.3.2 torchvision-0.17.2 tqdm-4.66.2 triton-2.0.0 typing-extensions-4.11.0 tzdata-2024.1 urllib3-2.2.1 wheel-0.43.0 yarl-1.9.4
+Training
