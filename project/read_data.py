@@ -45,7 +45,6 @@ def LoadDataSetMultiCoil(load_dir, variable = 'images_fs', padding = True, Norm 
                     data = image
                 else:
                     data = np.concatenate((data, image), axis=0)
-                    print(data.shape)
     
     # for k in range(10,80):
     #     file_name = load_dir + "0" + str(k) + "/cine_sax.mat"
@@ -117,9 +116,7 @@ def LoadDataSetMultiCoil(load_dir, variable = 'images_fs', padding = True, Norm 
         #             data = image
         #         else:
         #             data = np.concatenate((data, image), axis=0)
-        #             print(data.shape)
-    
-    print(data.shape)
+        #             print(data.shape)    
     return data
 
 
