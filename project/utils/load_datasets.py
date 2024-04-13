@@ -25,16 +25,17 @@ def load_data(
         raise ValueError("unspecified data directory")
     classes = None
 
+    logger.log("ON VERRA")
     dataset = ImageDataset(
         image_size,
         data_dir,
         data_type,
     )
-
+    logger.log("ET LA...")
     loader = DataLoader(
         dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True
     )
-
+    logger.log("BON")
     while True:
         yield from loader
 
@@ -54,11 +55,14 @@ def _list_image_files_recursively(data_dir):
 class ImageDataset(Dataset):
     def __init__(self, resolution, data_dir, data_type, classes=None, shard=0, num_shards=1):
         super().__init__()
+        logger.log("INIT IMAGEDATASET")
         self.resolution = resolution
         if data_type == "singlecoil":
             self.local_images = read_data.get_fs_singlecoil(data_dir)
         elif data_type == "multicoil":
+            logger.log("Alors Alors")
             self.local_images = read_data.get_fs_multicoil(data_dir)
+            logger.log("Normalement Read Data a FINI")
         self.local_classes = None if classes is None else classes[shard:][::num_shards]
 
     def __len__(self):

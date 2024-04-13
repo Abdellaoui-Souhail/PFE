@@ -74,7 +74,7 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
             images_list.append(image_list)
 
 
-    # Concatenate all images at once
+    # Concatenate all images
     data = np.concatenate(images_list,  axis=0)
     logger.log("DATA")
     np.save('/mounts/Datasets4/MICCAIChallenge2023/ChallegeData/MultiCoil/cine/TrainingSet/data_40.npy', data)
