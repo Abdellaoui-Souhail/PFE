@@ -52,6 +52,7 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
             image_rss = fastmri.rss(complex_image, dim=2)
             image_rss = image_rss.numpy()
             image = image_rss[:,:,:,:,0] + 1j*image_rss[:,:,:,:,1]
+            
 
             # Calculate padding amounts
             pad_y = (desired_ny - ny) if ny < desired_ny else 0
@@ -69,10 +70,13 @@ def LoadDataSetMultiCoil(load_dir, **kwargs):
             )
 
             image_list = image.reshape(nframe * nslice, 512, 512)
+            print(image_list.shape)
+            images_list.append(image_list)
 
 
     # Concatenate all images at once
-    data = np.concatenate(images_list, axis=0)
+    data = np.concatenate(images_list,  axis=0)
+    print(data.shape)
     return data
 
 

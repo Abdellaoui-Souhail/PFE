@@ -15,7 +15,7 @@ def LoadDataSetMultiCoil(**kwargs):
     images_list = []
 
     # Adjusted to handle file indexing
-    for k in range(1, 21):
+    for k in range(1, 5):
         if k < 10:
             k_index = f"P00{k}"
         elif k < 100:
@@ -57,6 +57,7 @@ def LoadDataSetMultiCoil(**kwargs):
             )
 
             image_list = image.reshape(nframe * nslice, 512, 512)
+            images_list.append(image_list)
 
 
     # Concatenate all images at once
