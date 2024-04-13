@@ -20,9 +20,9 @@ date
 mkdir $TMPDIR/code
 rsync -r --exclude logs --exclude logslurms --exclude configs . $TMPDIR/code
 
-echo "Checking out the correct version of the code commit_id 310d1a3ccc16b01e850cf0d64679fdcc3662c458"
+echo "Checking out the correct version of the code commit_id 60c7a6578fcb951e9a0e4a3fc6d10baa05dfe57f"
 cd $TMPDIR/code
-git checkout 310d1a3ccc16b01e850cf0d64679fdcc3662c458
+git checkout 60c7a6578fcb951e9a0e4a3fc6d10baa05dfe57f
 
 echo "Setting up the virtual environment"
 python3 -m venv venv
@@ -32,7 +32,7 @@ source venv/bin/activate
 python -m pip install .
 
 echo "Training" 
-python -m project.train --data_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/ --log_interval 100 --save_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil --save_interval 200 --image_size 512 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 200 --lr 1e-4 --batch_size 1 --lr_anneal_steps 5000 --undersampling_rate 4 --data_type 'multicoil'
+python -m project.train --data_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/ --log_interval 100 --save_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/model_multicoil --save_interval 200 --image_size 512 --num_channels 128 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 50 --lr 1e-4 --batch_size 1 --lr_anneal_steps 5000 --undersampling_rate 4 --data_type 'multicoil'
 
 if [[ $? != 0 ]]; then
     exit -1
