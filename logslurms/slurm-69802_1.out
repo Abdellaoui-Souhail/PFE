@@ -2,3 +2,13 @@ Session  69802_1
 Running on  sh21
 Copying the source directory and data
 Sun Apr 14 02:19:30 CEST 2024
+Checking out the correct version of the code commit_id 2e011de523366b360e33b2d4818be819a28cd3f0
+M	job.sbatch
+M	project/read_data.py
+Setting up the virtual environment
+Processing /tmp/abdellaoui_sou-69802/code
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
