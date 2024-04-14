@@ -66,7 +66,7 @@ class TrainLoop:
         self.fp16_scale_growth = fp16_scale_growth
         self.schedule_sampler = schedule_sampler or UniformSampler(diffusion)
         self.weight_decay = weight_decay
-        self.lr_anneal_steps = lr_anneal_steps # modifie ici
+        self.lr_anneal_steps = lr_anneal_steps
         self.save_dir = save_dir
 
         self.scaler = GradScaler()
@@ -107,14 +107,6 @@ class TrainLoop:
             self.model.load_state_dict(
                 self._load_state_dict(resume_checkpoint)
             )
-        #     if dist.get_rank() == 0:
-        #     self.model.load_state_dict(
-        #         dist_util.load_state_dict(
-        #             resume_checkpoint, map_location=dist_util.dev()
-        #         )
-        #     )
-
-        # dist_util.sync_params(self.model.parameters())
     
     def _load_state_dict(self, checkpoint_path):
         if th.cuda.is_available():
@@ -133,11 +125,6 @@ class TrainLoop:
             ema_params = self._state_dict_to_master_params(
                 self._load_state_dict(ema_checkpoint)
             )
-
-            # state_dict = dist_util.load_state_dict(
-            #     ema_checkpoint, map_location=dist_util.dev()
-            # )
-            # ema_params = self._state_dict_to_master_params(state_dict)
         
         return ema_params
 
@@ -151,11 +138,6 @@ class TrainLoop:
             self.opt.load_state_dict(
                 self._load_state_dict(opt_checkpoint)
             )
-
-            # state_dict = dist_util.load_state_dict(
-            #     opt_checkpoint, map_location=dist_util.dev()
-            # )
-            # self.opt.load_state_dict(state_dict)
 
     def _setup_fp16(self):
         self.master_params = make_master_params(self.model_params)
@@ -179,16 +161,11 @@ class TrainLoop:
     def run_step(self, batch, cond):
         self.forward_backward(batch, cond)
         self.optimize()
-        # if self.use_fp16:
-        #     self.optimize_fp16()
-        # else:
-        #     self.optimize_normal()
         self.log_step()
 
     def forward_backward(self, batch, cond):
         zero_grad(self.model_params)
         with autocast():  # Automatic Mixed Precision context
-            # Directly use the full batch since microbatching is disabled
             t, weights = self.schedule_sampler.sample(batch.shape[0], dist_util.dev())
             losses = self.diffusion.training_losses(
                 self.model,
