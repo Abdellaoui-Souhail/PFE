@@ -4,7 +4,7 @@ import time
 import numpy as np
 import torch as th
 import torch.distributed as dist
-import read_data
+import project.read_data
 from utils import dist_util, logger
 from utils.script_util_duo import (
     model_and_diffusion_defaults,
