@@ -160,16 +160,16 @@ class DiffusionBridge:
         """
         logger.log("P SAMPLE STEP 1")
         final = []
-        for sample in self.p_sample_loop_condition_progressive(
-            model,
-            shape,
-            kspace,
-            mask,
-            coil_map,
-            model_kwargs=model_kwargs,
-            device=device
-        ):
-            while len(final) < 100:
+        while len(final) < 100:
+            for sample in self.p_sample_loop_condition_progressive(
+                model,
+                shape,
+                kspace,
+                mask,
+                coil_map,
+                model_kwargs=model_kwargs,
+                device=device
+            ):
                 final.append(sample)
         logger.log("P SAMPLE STEP Finale")
         return final
