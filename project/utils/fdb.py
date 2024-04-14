@@ -269,7 +269,7 @@ class DiffusionBridge:
         Returns mask * kspace + (1 - mask) * fft(img)
         """
         if coil_map != None:
-            num_coils = coil_map.shape[1]
+            num_coils = coil_map.shape[1] # a revoir 
 
         padx = (kspace.shape[-2] - img.shape[-2]) // 2
         pady = (kspace.shape[-1] - img.shape[-1]) // 2
@@ -278,7 +278,7 @@ class DiffusionBridge:
 
         if self.data_type == "multicoil":
             img1 = th.tile(img1[:, :, padx:self.image_size-padx, pady:self.image_size-pady], dims=[1, num_coils, 1, 1])
-            img1 *= coil_map
+            # img1 *= coil_map
             mask = th.tile(mask[0, 0:1, :, :, :], dims=[1, num_coils, 1, 1])
         else:
             img1 = img1[:, :, padx:self.image_size-padx, pady:self.image_size-pady]
@@ -292,7 +292,8 @@ class DiffusionBridge:
         elif self.data_type == "multicoil":
             out1 = mask * kspace + (1 - mask) * img1_kspace
             out1 = self.ifft2c(out1)
-            out1 = th.sum(th.conj(coil_map) * out1, dim=1)
+            #out1 = th.sum(th.conj(coil_map) * out1, dim=1)
+            out1 = th.sum(out1, dim=1)
             out1.unsqueeze_(1)
 
         out = th.cat([out1.real, out1.imag], 1).to(th.float32)

@@ -50,22 +50,9 @@ def get_fs_singlecoil(data_dir, phase = 'train'):
 
 
 def get_us_singlecoil(data_dir, phase = 'test', contrast= 'T1', R = 4):
-    """
-    Returns singlecoil undersampled images and undersampling masks of shape
-    [Number of images x height x width]
-    """
 
-    print("Loading " + contrast + " " + str(R) + "x Data")
-    target_file = data_dir + contrast + "_" + str(R) + "_multi_synth_recon_" + str(phase) + ".mat"
-    data_us = LoadDataSetSingleCoil(target_file, variable = "data_us")
-    us_masks = LoadDataSetSingleCoil(target_file, variable = "us_masks")
-
-    data_us = np.squeeze(data_us)
-    us_masks = np.squeeze(us_masks)
-
-    print(data_us.shape, us_masks.shape)
-
-    return data_us, us_masks
+    # Court-circuité
+    return 0
 
 
 def get_fs_multicoil(data_dir, phase = 'train'):
@@ -88,14 +75,8 @@ def get_us_multicoil(data_dir, phase='test', contrast= 'T1', R = 4):
     [Number of images x number of coils x height x width]
     """
 
-    print("Loading " + contrast + " " + str(R) + "x Data")
-
-    target_file = data_dir + contrast + "/" + contrast + "_under_sampled_" + str(R) + "x_multicoil_" + str(phase) + ".mat"
-    data_fs = LoadDataSetMultiCoil(target_file, 'images_fs', padding = False, Norm = True, channel_cat = False)
-    data_us = LoadDataSetMultiCoil(target_file, 'images_us', padding = False, Norm = True, channel_cat = False)
-    masks = LoadDataSetMultiCoil(target_file, 'map', padding = False, Norm = False, is_complex = False, channel_cat = False)
-    coil_maps = LoadDataSetMultiCoil(target_file, 'coil_maps', padding = False, Norm = False, channel_cat = False)
-
-    print(data_us.shape, masks.shape, coil_maps.shape)
+    data_us = np.load('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/data_kspace_undersampled_1.npy')
+    masks = np.load('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/data_mask_undersampled_1.npy')
+    coil_maps = data_us
 
     return data_us, masks, coil_maps

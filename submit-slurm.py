@@ -40,7 +40,6 @@ python -m pip install .
 
 echo "Training" 
 python -m project.train --data_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/PFE/ --log_interval 100 --save_dir /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/model_multicoil_total_aussi --save_interval 200 --image_size 512 --num_channels 32 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 5000 --lr 1e-4 --batch_size 1 --lr_anneal_steps 15000 --undersampling_rate 4 --data_type 'multicoil'
-
 if [[ $? != 0 ]]; then
     exit -1
 fi

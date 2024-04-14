@@ -16,3 +16,4 @@ Or undo this operation with:
 Turn off this advice by setting config variable advice.detachedHead to false
 
 HEAD is now at d3a479a 3eme
+slurmstepd: error: *** JOB 69804 ON sh00 CANCELLED AT 2024-04-14T02:57:56 ***
