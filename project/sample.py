@@ -13,7 +13,7 @@ from project.utils.script_util_duo import (
     args_to_dict,
 )
 import imageio
-import hdf5storage
+import matplotlib.pyplot as plt
 
 
 def main():
@@ -94,10 +94,8 @@ def main():
         logger.log("Loop : STEP 10")
         vis_1 = np.abs(coarse_np[0,-1,0,:,:] + coarse_np[0,-1,1,:,:]*1j)
         logger.log(str(vis_1.shape))
-        savedict = {}
-        savedict["image"] = vis_1
-        filepath = os.path.join(args.save_path, "image" + '_' + str(index) + '.mat'), vis_1/vis_1.max()
-        hdf5storage.savemat(filepath, savedict)
+        file_path = os.path.join(args.save_path, "image" + '_' + str(index) + '.png')
+        plt.imsave(file_path, vis_1, cmap='gray')
         #imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
         logger.log("Loop : STEP Finale")
         print(args.save_path)
