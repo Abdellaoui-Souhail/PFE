@@ -79,4 +79,4 @@ def get_us_multicoil(data_dir, phase='test', contrast= 'T1', R = 4):
     masks = np.load('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/data_mask_undersampled_1.npy')
     coil_maps = data_us
 
-    return data_us[0:10], masks[0:10], coil_maps[0:10]
+    return data_us[152:154], masks[152:154], coil_maps[152:154]
