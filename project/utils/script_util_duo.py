@@ -23,7 +23,7 @@ def model_and_diffusion_defaults():
         use_checkpoint=False,
         use_scale_shift_norm=True,
         undersampling_rate=2,
-        data_type="singlecoil",
+        data_type="multicoil",
     )
 
 
