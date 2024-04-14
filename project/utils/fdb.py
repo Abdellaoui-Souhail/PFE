@@ -169,7 +169,8 @@ class DiffusionBridge:
             model_kwargs=model_kwargs,
             device=device
         ):
-            final.append(sample)
+            while len(final) < 100:
+                final.append(sample)
         logger.log("P SAMPLE STEP Finale")
         return final
 
