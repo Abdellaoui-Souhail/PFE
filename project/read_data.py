@@ -73,7 +73,7 @@ def get_fs_multicoil(data_dir, phase = 'train'):
     [Number of images x height x width]
     """
 
-    data_fs = np.load('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/data_4.npy')
+    data_fs = np.load('/usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/data_1.npy')
 
     return data_fs
 
