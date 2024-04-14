@@ -92,7 +92,12 @@ def main():
         np.save(os.path.join(args.save_path, "coarse" + str(index)  + ".npy"), coarse_np)
         logger.log("Loop : STEP 10")
         vis_1 = np.abs(coarse_np[0,-1,0,:,:] + coarse_np[0,-1,1,:,:]*1j)
-        imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
+        logger.log(str(vis_1.shape))
+        savedict = {}
+        savedict[image] = vis_1
+        filepath = os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max()
+        hdf5storage.savemat(filepath, savedict)
+        #imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
         logger.log("Loop : STEP Finale")
         print(args.save_path)
 
