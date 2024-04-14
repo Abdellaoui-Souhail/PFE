@@ -44,3 +44,75 @@ Collecting scipy>=1.10.1
 Collecting PyYAML>=6.0
   Using cached PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (736 kB)
 Collecting torch>=2.2.1
+  Using cached torch-2.2.2-cp38-cp38-manylinux1_x86_64.whl (755.5 MB)
+Collecting fastmri>=0.3.0
+  Using cached fastmri-0.3.0-py3-none-any.whl (58 kB)
+Processing /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/.cache/pip/wheels/56/8b/e8/e2ac5b75cacca356a2f270568f7ac5b6c77c6aa223bf8d2bca/mpi4py-3.1.5-cp38-cp38-linux_x86_64.whl
+Collecting urllib3<3,>=1.25.3
+  Using cached urllib3-2.2.1-py3-none-any.whl (121 kB)
+Collecting pycryptodomex~=3.8
+  Using cached pycryptodomex-3.20.0-cp35-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+Collecting lxml~=4.9
+  Using cached lxml-4.9.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (7.1 MB)
+Collecting filelock~=3.0
+  Using cached filelock-3.13.4-py3-none-any.whl (11 kB)
+Collecting pyparsing>=2.3.1
+  Using cached pyparsing-3.1.2-py3-none-any.whl (103 kB)
+Collecting fonttools>=4.22.0
+  Using cached fonttools-4.51.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.7 MB)
+Collecting importlib-resources>=3.2.0; python_version < "3.10"
+  Using cached importlib_resources-6.4.0-py3-none-any.whl (38 kB)
+Collecting cycler>=0.10
+  Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Collecting python-dateutil>=2.7
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting kiwisolver>=1.0.1
+  Using cached kiwisolver-1.4.5-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl (1.2 MB)
+Collecting contourpy>=1.0.1
+  Using cached contourpy-1.1.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (301 kB)
+Collecting packaging>=20.0
+  Using cached packaging-24.0-py3-none-any.whl (53 kB)
+Collecting protobuf!=4.21.0,<5,>=3.12.0; python_version < "3.9" and sys_platform == "linux"
+  Using cached protobuf-4.25.3-cp37-abi3-manylinux2014_x86_64.whl (294 kB)
+Collecting appdirs>=1.4.3
+  Using cached appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Requirement already satisfied: setuptools in ./venv/lib/python3.8/site-packages (from wandb>=0.16.5->project==0.0.1) (44.0.0)
+Collecting sentry-sdk>=1.0.0
+  Using cached sentry_sdk-1.45.0-py2.py3-none-any.whl (267 kB)
+Collecting typing-extensions; python_version < "3.10"
+  Using cached typing_extensions-4.11.0-py3-none-any.whl (34 kB)
+Collecting psutil>=5.0.0
+  Using cached psutil-5.9.8-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (288 kB)
+Collecting GitPython!=3.1.29,>=1.0.0
+  Using cached GitPython-3.1.43-py3-none-any.whl (207 kB)
+Collecting docker-pycreds>=0.4.0
+  Using cached docker_pycreds-0.4.0-py2.py3-none-any.whl (9.0 kB)
+Collecting setproctitle
+  Using cached setproctitle-1.3.3-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (31 kB)
+Collecting Click!=8.0.0,>=7.1
+  Using cached click-8.1.7-py3-none-any.whl (97 kB)
+Collecting safetensors>=0.3.1
+  Using cached safetensors-0.4.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+Collecting huggingface-hub
+  Using cached huggingface_hub-0.22.2-py3-none-any.whl (388 kB)
+Collecting charset-normalizer<4,>=2
+  Using cached charset_normalizer-3.3.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (141 kB)
+Collecting idna<4,>=2.5
+  Using cached idna-3.7-py3-none-any.whl (66 kB)
+Collecting certifi>=2017.4.17
+  Using cached certifi-2024.2.2-py3-none-any.whl (163 kB)
+Collecting nvidia-cuda-cupti-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cuda_cupti_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (14.1 MB)
+Collecting nvidia-cufft-cu12==11.0.2.54; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_cufft_cu12-11.0.2.54-py3-none-manylinux1_x86_64.whl (121.6 MB)
+Collecting nvidia-nvtx-cu12==12.1.105; platform_system == "Linux" and platform_machine == "x86_64"
+  Using cached nvidia_nvtx_cu12-12.1.105-py3-none-manylinux1_x86_64.whl (99 kB)
+Collecting networkx
+  Using cached networkx-3.1-py3-none-any.whl (2.1 MB)
+Collecting triton==2.2.0; platform_system == "Linux" and platform_machine == "x86_64" and python_version < "3.12"
+  Using cached triton-2.2.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (167.9 MB)
+Collecting sympy
+  Using cached sympy-1.12-py3-none-any.whl (5.7 MB)
+Collecting fsspec
+  Using cached fsspec-2024.3.1-py3-none-any.whl (171 kB)
+Collecting nvidia-cublas-cu12==12.1.3.1; platform_system == "Linux" and platform_machine == "x86_64"
