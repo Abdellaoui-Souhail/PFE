@@ -16,3 +16,51 @@ Or undo this operation with:
 Turn off this advice by setting config variable advice.detachedHead to false
 
 HEAD is now at 4ff3abb version finale v1
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/tmp/abdellaoui_sou-69799/code/project/train.py", line 87, in <module>
+    main()
+  File "/tmp/abdellaoui_sou-69799/code/project/train.py", line 42, in main
+    TrainLoop(
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/train_util.py", line 151, in run_loop
+    self.run_step(batch, cond)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/train_util.py", line 162, in run_step
+    self.forward_backward(batch, cond)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/train_util.py", line 170, in forward_backward
+    losses = self.diffusion.training_losses(
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/fdb.py", line 315, in training_losses
+    model_output = model(x_t, t, **model_kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/unet.py", line 490, in forward
+    h = module(cat_in, emb)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/unet.py", line 44, in forward
+    x = layer(x, emb)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/unet.py", line 180, in forward
+    return checkpoint(
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/nn.py", line 139, in checkpoint
+    return func(*inputs)
+  File "/tmp/abdellaoui_sou-69799/code/project/utils/unet.py", line 197, in _forward
+    return self.skip_connection(x) + h
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 460, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/tmp/abdellaoui_sou-69799/code/venv/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 456, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 17.69 MiB is free. Including non-PyTorch memory, this process has 9.75 GiB memory in use. Of the allocated memory 8.31 GiB is allocated by PyTorch, and 66.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
