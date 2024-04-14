@@ -24,7 +24,7 @@ def main():
     elif args.data_type == "multicoil":
         images, masks, coil_maps = read_data.get_us_multicoil(args.data_path, R=args.R, contrast=args.contrast)
 
-    dist_util.setup_dist()
+    #dist_util.setup_dist()
     logger.configure(dir=args.save_path)
 
     logger.log("creating model and diffusion...")
@@ -33,8 +33,11 @@ def main():
         **args_to_dict(args, model_and_diffusion_defaults().keys())
     )
     logger.log("STEP 2")
+    # model.load_state_dict(
+    #     dist_util.load_state_dict(args.model_path, map_location="cpu")
+    # )
     model.load_state_dict(
-        dist_util.load_state_dict(args.model_path, map_location="cpu")
+        th.load(args.model_path, map_location="cpu")
     )
     logger.log("STEP 3")
     #model.to(dist_util.dev())
