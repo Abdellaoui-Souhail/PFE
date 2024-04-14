@@ -239,6 +239,8 @@ class DiffusionBridge:
             device = next(model.parameters()).device
         assert isinstance(shape, (tuple, list))
 
+        device = 'cpu'
+        
         if self.data_type == "singlecoil":
             img1 = kspace[:, [0]] + kspace[:, [1]] * 1j
             img1 = self.ifft2c(img1)
