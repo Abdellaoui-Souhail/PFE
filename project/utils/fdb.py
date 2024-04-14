@@ -160,19 +160,20 @@ class DiffusionBridge:
         """
         logger.log("P SAMPLE STEP 1")
         final = []
-        while len(final) < 100:
-            for sample in self.p_sample_loop_condition_progressive(
-                model,
-                shape,
-                kspace,
-                mask,
-                coil_map,
-                model_kwargs=model_kwargs,
-                device=device
-            ):
+        for sample in self.p_sample_loop_condition_progressive(
+            model,
+            shape,
+            kspace,
+            mask,
+            coil_map,
+            model_kwargs=model_kwargs,
+            device=device
+        ):
+            while len(final) < 100:    
                 final.append(sample)
-        logger.log("P SAMPLE STEP Finale")
-        return final
+            return final
+        #logger.log("P SAMPLE STEP Finale")
+        #return final
 
     def create_mask(self, m_us):
         """
