@@ -38,7 +38,7 @@ def main():
     )
     logger.log("STEP 3")
     #model.to(dist_util.dev())
-    model.to(device)
+    #model.to(device)
     logger.log("STEP 4")
 
     model.eval()
