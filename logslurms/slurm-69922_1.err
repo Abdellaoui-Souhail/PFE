@@ -1,0 +1,47 @@
+Note: switching to 'c8dc55654dda0a535a04f63630869cacfd89a7a8'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at c8dc556 On verra
+Traceback (most recent call last):
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/PIL/PngImagePlugin.py", line 1289, in _save
+    rawmode, mode = _OUTMODES[mode]
+KeyError: 'F'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/tmp/abdellaoui_sou-69922/code/project/sample.py", line 136, in <module>
+    main()
+  File "/tmp/abdellaoui_sou-69922/code/project/sample.py", line 95, in main
+    imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/imageio/v2.py", line 397, in imwrite
+    return file.write(im, **kwargs)
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/imageio/core/v3_plugin_api.py", line 367, in __exit__
+    self.close()
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/imageio/plugins/pillow.py", line 144, in close
+    self._flush_writer()
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/imageio/plugins/pillow.py", line 485, in _flush_writer
+    primary_image.save(self._request.get_file(), **self.save_args)
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/PIL/Image.py", line 2459, in save
+    save_handler(self, fp, filename)
+  File "/tmp/abdellaoui_sou-69922/code/venv/lib/python3.8/site-packages/PIL/PngImagePlugin.py", line 1292, in _save
+    raise OSError(msg) from e
+OSError: cannot write mode F as PNG
