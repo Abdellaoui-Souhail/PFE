@@ -2,3 +2,45 @@ Session  69803_1
 Running on  sh22
 Copying the source directory and data
 Sun Apr 14 02:20:10 CEST 2024
+Checking out the correct version of the code commit_id 90fd8a482741da7d6267b368d1d5c252eb79f556
+M	job.sbatch
+D	logslurms/slurm-69802_1.err
+D	logslurms/slurm-69802_1.out
+M	project/read_data.py
+Setting up the virtual environment
+Processing /tmp/abdellaoui_sou-69803/code
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting blobfile>=2.0.2
+  Using cached blobfile-2.1.1-py3-none-any.whl (73 kB)
+Collecting matplotlib>=3.7.0
+  Using cached matplotlib-3.7.5-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (9.2 MB)
+Collecting torchvision>=0.17.1
+  Using cached torchvision-0.17.2-cp38-cp38-manylinux1_x86_64.whl (6.9 MB)
+Collecting wandb>=0.16.5
+  Using cached wandb-0.16.6-py3-none-any.whl (2.2 MB)
+Collecting torchinfo>=1.8.0
+  Using cached torchinfo-1.8.0-py3-none-any.whl (23 kB)
+Collecting h5py>=3.9.0
+  Using cached h5py-3.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.3 MB)
+Collecting numpy>=1.24.4
+  Using cached numpy-1.24.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+Collecting imageio>=2.22.1
+  Using cached imageio-2.34.0-py3-none-any.whl (313 kB)
+Collecting tqdm>=4.66.2
+  Using cached tqdm-4.66.2-py3-none-any.whl (78 kB)
+Collecting accelerate>=0.28.0
+  Using cached accelerate-0.29.2-py3-none-any.whl (297 kB)
+Collecting Pillow>=10.0.0
+  Using cached pillow-10.3.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.4 MB)
+Collecting requests>=2.31.0
+  Using cached requests-2.31.0-py3-none-any.whl (62 kB)
+Collecting scipy>=1.10.1
+  Using cached scipy-1.10.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (34.5 MB)
+Collecting PyYAML>=6.0
+  Using cached PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (736 kB)
+Collecting torch>=2.2.1

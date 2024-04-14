@@ -1,4 +1,4 @@
-Note: switching to '90fd8a482741da7d6267b368d1d5c252eb79f556'.
+Note: switching to 'd3a479a63562b365e3c60498e3c96288e45eee90'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
@@ -15,4 +15,4 @@ Or undo this operation with:
 
 Turn off this advice by setting config variable advice.detachedHead to false
 
-HEAD is now at 90fd8a4 2eme
+HEAD is now at d3a479a 3eme

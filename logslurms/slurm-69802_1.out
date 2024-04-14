@@ -12,3 +12,24 @@ Processing /tmp/abdellaoui_sou-69802/code
   Getting requirements to build wheel: started
   Getting requirements to build wheel: finished with status 'done'
     Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Collecting h5py>=3.9.0
+  Using cached h5py-3.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.3 MB)
+Collecting imageio>=2.22.1
+  Using cached imageio-2.34.0-py3-none-any.whl (313 kB)
+Collecting PyYAML>=6.0
+  Using cached PyYAML-6.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (736 kB)
+Processing /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/.cache/pip/wheels/56/8b/e8/e2ac5b75cacca356a2f270568f7ac5b6c77c6aa223bf8d2bca/mpi4py-3.1.5-cp38-cp38-linux_x86_64.whl
+Collecting tqdm>=4.66.2
+  Using cached tqdm-4.66.2-py3-none-any.whl (78 kB)
+Collecting blobfile>=2.0.2
+  Using cached blobfile-2.1.1-py3-none-any.whl (73 kB)
+Collecting numpy>=1.24.4
+  Using cached numpy-1.24.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+Collecting accelerate>=0.28.0
+  Using cached accelerate-0.29.2-py3-none-any.whl (297 kB)
+Collecting matplotlib>=3.7.0
+  Using cached matplotlib-3.7.5-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (9.2 MB)
+Collecting torchvision>=0.17.1
+  Using cached torchvision-0.17.2-cp38-cp38-manylinux1_x86_64.whl (6.9 MB)
+Collecting torch>=2.2.1
