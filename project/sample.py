@@ -94,7 +94,7 @@ def main():
         vis_1 = np.abs(coarse_np[0,-1,0,:,:] + coarse_np[0,-1,1,:,:]*1j)
         logger.log(str(vis_1.shape))
         savedict = {}
-        savedict[image] = vis_1
+        savedict["image"] = vis_1
         filepath = os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max()
         hdf5storage.savemat(filepath, savedict)
         #imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
