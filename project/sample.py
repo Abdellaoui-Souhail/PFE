@@ -17,6 +17,7 @@ import imageio
 
 def main():
     args = create_argparser().parse_args()
+    device = 'cuda' if th.cuda.is_available() else 'cpu'
 
     if args.data_type == "singlecoil":
         images, masks = read_data.get_us_singlecoil(args.data_path, R=args.R, contrast=args.contrast)
@@ -36,7 +37,8 @@ def main():
         dist_util.load_state_dict(args.model_path, map_location="cpu")
     )
     logger.log("STEP 3")
-    model.to(dist_util.dev())
+    #model.to(dist_util.dev())
+    model.to(device)
     logger.log("STEP 4")
 
     model.eval()
