@@ -107,7 +107,7 @@ def load_data(dataset, index, batch_size, data_type):
         kspace = th.FloatTensor(np.stack([np.real(kspace1), np.imag(kspace1)])).cuda().view(1, 2, img_prior.shape[-2], img_prior.shape[-1]).repeat(batch_size, 1, 1, 1).float()
     elif data_type == "multicoil":
         #kspace = th.from_numpy(kspace1).cuda().view(1, 5, img_prior.shape[-2], img_prior.shape[-1]).repeat(batch_size, 1, 1, 1)
-        kspace = th.from_numpy(kspace1).view(1, 5, img_prior.shape[-2], img_prior.shape[-1]).repeat(batch_size, 1, 1, 1)
+        kspace = th.from_numpy(kspace1).view(1, 10, img_prior.shape[-2], img_prior.shape[-1]).repeat(batch_size, 1, 1, 1)
     return kspace
 
 def create_argparser():
