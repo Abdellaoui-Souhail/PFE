@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import time
 import os
 from .nn import mean_flat
+from project.utils import dist_util, logger
 
 class LossType(enum.Enum):
     MSE = enum.auto()  # use raw MSE loss (and KL when learning variances)
@@ -157,7 +158,7 @@ class DiffusionBridge:
                        If not specified, use a model parameter's device.
         :return: a non-differentiable batch of samples.
         """
-
+        logger.log("P SAMPLE STEP 1")
         final = []
         for sample in self.p_sample_loop_condition_progressive(
             model,
@@ -239,6 +240,7 @@ class DiffusionBridge:
         #     device = next(model.parameters()).device
         assert isinstance(shape, (tuple, list))
 
+        logger.log("P SAMPLE STEP 2")
         device = 'cpu'
 
         if self.data_type == "singlecoil":
@@ -248,12 +250,14 @@ class DiffusionBridge:
             img1 = self.ifft2c(kspace)
             img1 = th.unsqueeze(th.mean(img1, dim=1), dim=1)
 
+        logger.log("P SAMPLE STEP 3")
         img = th.cat([img1.real, img1.imag], 1).to(th.float32)
-
+        logger.log("P SAMPLE STEP 4")
         indices = list(range(self.num_timesteps))[::-1]
 
         #M = th.from_numpy(self.create_mask(mask)).to(device)
         M = th.from_numpy(self.create_mask(mask))
+        logger.log("P SAMPLE STEP 5")
 
         for i in indices:
             if i % 100 == 0:
@@ -263,7 +267,9 @@ class DiffusionBridge:
             t = th.tensor([i] * shape[0])
 
             with th.no_grad():
+                logger.log("P SAMPLE STEP 6")
                 out = self.p_sample(model, img, M, t)
+                logger.log("P SAMPLE STEP 7")
                 img = self.data_consistency(out, kspace, mask, coil_map)
                 yield img
 
@@ -275,10 +281,12 @@ class DiffusionBridge:
         if coil_map != None:
             num_coils = coil_map.shape[1] # a revoir 
 
+        logger.log("P SAMPLE STEP 8")
         padx = (kspace.shape[-2] - img.shape[-2]) // 2
         pady = (kspace.shape[-1] - img.shape[-1]) // 2
 
         img1 = img[:, [0]] + img[:, [1]] * 1j
+        logger.log("P SAMPLE STEP 9")
 
         if self.data_type == "multicoil":
             img1 = th.tile(img1[:, :, padx:self.image_size-padx, pady:self.image_size-pady], dims=[1, num_coils, 1, 1])
