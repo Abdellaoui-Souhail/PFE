@@ -235,12 +235,12 @@ class DiffusionBridge:
         Returns a generator over dicts, where each dict is the return value of
         p_sample().
         """
-        if device is None:
-            device = next(model.parameters()).device
+        # if device is None:
+        #     device = next(model.parameters()).device
         assert isinstance(shape, (tuple, list))
 
         device = 'cpu'
-        
+
         if self.data_type == "singlecoil":
             img1 = kspace[:, [0]] + kspace[:, [1]] * 1j
             img1 = self.ifft2c(img1)
@@ -252,13 +252,15 @@ class DiffusionBridge:
 
         indices = list(range(self.num_timesteps))[::-1]
 
-        M = th.from_numpy(self.create_mask(mask)).to(device)
+        #M = th.from_numpy(self.create_mask(mask)).to(device)
+        M = th.from_numpy(self.create_mask(mask))
 
         for i in indices:
             if i % 100 == 0:
                 print('ITER:', i)
 
-            t = th.tensor([i] * shape[0], device=device)
+            #t = th.tensor([i] * shape[0], device=device)
+            t = th.tensor([i] * shape[0])
 
             with th.no_grad():
                 out = self.p_sample(model, img, M, t)
