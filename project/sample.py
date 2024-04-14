@@ -67,8 +67,8 @@ def main():
             coil_map = None
 
         logger.log("Loop : STEP 6")
-        #start_time = time.time()
-        #print("Index:", index)
+        start_time = time.time()
+        print("Index:", index)
         sample = diffusion.p_sample_loop_condition(
             model,
             (args.batch_size, 2, args.image_size, args.image_size),
