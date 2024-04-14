@@ -170,6 +170,7 @@ class DiffusionBridge:
             device=device
         ):
             final.append(sample)
+        logger.log("P SAMPLE STEP Finale")
         return final
 
     def create_mask(self, m_us):
@@ -261,6 +262,7 @@ class DiffusionBridge:
 
         for i in indices:
             if i % 100 == 0:
+                logger.log("ITER")
                 print('ITER:', i)
 
             #t = th.tensor([i] * shape[0], device=device)
@@ -271,6 +273,7 @@ class DiffusionBridge:
                 out = self.p_sample(model, img, M, t)
                 logger.log("P SAMPLE STEP 7")
                 img = self.data_consistency(out, kspace, mask, coil_map)
+                logger.log("P SAMPLE STEP 12")
                 yield img
 
     def data_consistency(self, img, kspace, mask, coil_map=None):
@@ -298,6 +301,7 @@ class DiffusionBridge:
 
         img1_kspace = self.fft2c(img1)
 
+        logger.log("P SAMPLE STEP 10")
         if self.data_type == "singlecoil":
             out1 = mask[:, [0]] * kspace1 + (1 - mask[:, [0]]) * img1_kspace
             out1 = self.ifft2c(out1)
@@ -308,7 +312,9 @@ class DiffusionBridge:
             out1 = th.sum(out1, dim=1)
             out1.unsqueeze_(1)
 
+        logger.log("P SAMPLE STEP 11")
         out = th.cat([out1.real, out1.imag], 1).to(th.float32)
+        logger.log("P SAMPLE STEP 12")
         return out
 
     def training_losses(self, model, x_0, t, model_kwargs=None):
