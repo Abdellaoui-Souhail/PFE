@@ -96,7 +96,7 @@ def main():
         logger.log(str(vis_1.shape))
         savedict = {}
         savedict["image"] = vis_1
-        filepath = os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max()
+        filepath = os.path.join(args.save_path, "image" + '_' + str(index) + '.mat'), vis_1/vis_1.max()
         hdf5storage.savemat(filepath, savedict)
         #imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
         logger.log("Loop : STEP Finale")
