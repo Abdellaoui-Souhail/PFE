@@ -171,8 +171,8 @@ class DiffusionBridge:
             device=device
         ):   
             while len(res) < 100:
-            res.append(sample)
-        return res
+                res.append(sample)
+            return res
         #logger.log("P SAMPLE STEP Finale")
         #return final
 
