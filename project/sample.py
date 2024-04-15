@@ -15,6 +15,9 @@ from project.utils.script_util_duo import (
 import imageio
 import matplotlib.pyplot as plt
 
+import fastmri
+from fastmri.data import transforms as T
+
 
 def main():
     args = create_argparser().parse_args()
@@ -91,11 +94,16 @@ def main():
         coarse_np = coarse.cpu().data.numpy()
         logger.log("Loop : STEP 9")
         np.save(os.path.join(args.save_path, "coarse" + str(index)  + ".npy"), coarse_np)
+        logger.log(str(coarse_np.shape))
         logger.log("Loop : STEP 10")
         vis_1 = np.abs(coarse_np[0,-1,0,:,:] + coarse_np[0,-1,1,:,:]*1j)
         logger.log(str(vis_1.shape))
-        file_path = os.path.join(args.save_path, "image" + '_' + str(index) + '.png')
+        file_path = os.path.join(args.save_path, "kspace" + '_' + str(index) + '.png')
         plt.imsave(file_path, vis_1, cmap='gray')
+        slice_image = fastmri.ifft2c(vis_1)
+        image = fastmri.complex_abs(slice_image)
+        file_path = os.path.join(args.save_path, "image" + '_' + str(index) + '.png')
+        plt.imsave(file_path, image, cmap='gray')
         #imageio.imsave(os.path.join(args.save_path, "image" + '_' + str(index) + '.png'), vis_1/vis_1.max())
         logger.log("Loop : STEP Finale")
         print(args.save_path)

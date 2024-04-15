@@ -20,9 +20,9 @@ date
 mkdir $TMPDIR/code
 rsync -r --exclude logs --exclude logslurms --exclude configs . $TMPDIR/code
 
-echo "Checking out the correct version of the code commit_id 864b28e0fefefa107a5b1af258b3ad36c1558e6b"
+echo "Checking out the correct version of the code commit_id 8fb4c7e8cbb8b51aa31c3e48de79a3742be47d2f"
 cd $TMPDIR/code
-git checkout 864b28e0fefefa107a5b1af258b3ad36c1558e6b
+git checkout 8fb4c7e8cbb8b51aa31c3e48de79a3742be47d2f
 
 echo "Setting up the virtual environment"
 python3 -m venv venv
@@ -32,7 +32,7 @@ source venv/bin/activate
 python -m pip install .
 
 echo "Sampling" 
-python -m project.sample --model_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/model_multicoil_1/ema_0.9999_005000.pt --data_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/ --image_size 512 --num_channels 32 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 100 --save_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/model_multicoil_1/ --num_samples 1 --batch_size 1 --data_type 'multicoil' --R 4 --contrast ''
+python -m project.sample --model_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/model_multicoil_total_aussi/ema_0.9999_009000.pt --data_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/ --image_size 512 --num_channels 32 --num_res_blocks 3 --learn_sigma False --dropout 0.3 --diffusion_steps 100 --save_path /usr/users/cei2023_2024_inserm_nir_irm/abdellaoui_sou/model_multicoil_total_aussi/ --num_samples 1 --batch_size 1 --data_type 'multicoil' --R 4 --contrast ''
 if [[ $? != 0 ]]; then
     exit -1
 fi
