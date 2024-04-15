@@ -171,7 +171,7 @@ class DiffusionBridge:
             device=device
         ):   
             res = [sample]
-        return final
+        return res
         #logger.log("P SAMPLE STEP Finale")
         #return final
 
