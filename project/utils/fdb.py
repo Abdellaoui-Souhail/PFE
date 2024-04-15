@@ -160,7 +160,7 @@ class DiffusionBridge:
         """
         logger.log("P SAMPLE STEP 1")
         #final = []
-        res = []
+        res = np.array([])
         for sample in self.p_sample_loop_condition_progressive(
             model,
             shape,
