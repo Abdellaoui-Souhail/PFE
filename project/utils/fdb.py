@@ -159,7 +159,8 @@ class DiffusionBridge:
         :return: a non-differentiable batch of samples.
         """
         logger.log("P SAMPLE STEP 1")
-        final = []
+        #final = []
+        res = []
         for sample in self.p_sample_loop_condition_progressive(
             model,
             shape,
@@ -168,10 +169,9 @@ class DiffusionBridge:
             coil_map,
             model_kwargs=model_kwargs,
             device=device
-        ):
-            while len(final) < 100:    
-                final.append(sample)
-            return final
+        ):   
+            res = [sample]
+        return final
         #logger.log("P SAMPLE STEP Finale")
         #return final
 
