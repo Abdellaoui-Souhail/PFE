@@ -170,7 +170,7 @@ class DiffusionBridge:
             model_kwargs=model_kwargs,
             device=device
         ):   
-            res = res.append(sample)
+            res.append(sample)
         return res
         #logger.log("P SAMPLE STEP Finale")
         #return final
